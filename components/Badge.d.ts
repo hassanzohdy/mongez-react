@@ -1,0 +1,10 @@
+export default function Badge(props: any): JSX.Element;
+export declare const RedBadge: (props: any) => JSX.Element;
+export declare const BlueBadge: (props: any) => JSX.Element;
+export declare const OrangeBadge: (props: any) => JSX.Element;
+export declare const YellowBadge: (props: any) => JSX.Element;
+export declare const GreenBadge: (props: any) => JSX.Element;
+export declare const BlackBadge: (props: any) => JSX.Element;
+export declare const DarkBadge: (props: any) => JSX.Element;
+export declare const GreyBadge: (props: any) => JSX.Element;
+export declare const WhiteBadge: (props: any) => JSX.Element;

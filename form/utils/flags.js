@@ -1,0 +1,3 @@
+const DISABLE_INPUT_CHANGE = '__DISABLE__';
+
+export { DISABLE_INPUT_CHANGE };

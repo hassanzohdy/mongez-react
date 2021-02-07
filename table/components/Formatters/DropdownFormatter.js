@@ -1,0 +1,68 @@
+import 'reinforcements';
+import React from 'react';
+import 'sprintf-js';
+import '../../../localization/locales.js';
+import Is from '@flk/supportive-is';
+import '@material-ui/core';
+import '../../../components/Link.js';
+import 'prop-types';
+import '../../../components/Modal.js';
+import 'material-ui-image';
+import '../../../components/Chart.js';
+import '../../../components/Avatar.js';
+import '../../../components/Tabs.js';
+import '@material-ui/core/Button';
+import '../../../form/components/Label.js';
+import '../../../form/Context/FormContext.js';
+import '../../../form/components/FormInput.js';
+import '../../../components/Confirm.js';
+import 'react-timeago';
+import '../../../components/Tooltip.js';
+import '../../../components/ScrollTo.js';
+import '../../../components/Redirect.js';
+import '../../../components/Accordion.js';
+import '../../../components/ColoredIcon.js';
+import 'react-awesome-lightbox';
+import 'react-awesome-lightbox/build/style.css';
+import '@material-ui/icons/AddCircle';
+import '../../../components/Preloaders/Spinner/index.js';
+import '../../../components/ColoredButton.js';
+import '@material-ui/icons/Delete';
+import '../../../components/LabelledOutline.js';
+import '../../../components/Condition.js';
+import '../../../components/Grid/GridItemCheckBoxContainer.js';
+import '../../../components/Badge.js';
+import '../../../form/validation/locales/ar.js';
+import '../../../form/validation/locales/en.js';
+import 'form-serialize';
+import '@material-ui/core/FormControlLabel';
+import '../../../form/components/Checkbox.js';
+import '../../../form/components/TextInput.js';
+import 'material-ui-chip-input';
+import '../../../form/components/FormError.js';
+import '../../../form/components/StaticButton.js';
+import '../../../form/components/FileInput.js';
+import '@material-ui/core/CircularProgress';
+import '../../../form/components/FormModal.js';
+import '../../../form/components/ImageInput.js';
+import '../../../form/components/EmailInput.js';
+import 'material-ui-color';
+import SelectInput from '../../../form/components/SelectInput.js';
+import '../../../form/components/AutoComplete.js';
+import '../../../form/components/TextAreaInput.js';
+import '../../../form/components/PasswordInput.js';
+import '../../../form/components/CheckboxGroup.js';
+import '../../../form/components/RichTextInput.js';
+import '../../../form/components/MultiLingualInput.js';
+import '../../../form/components/SwitchButton.js';
+
+function DropdownFormatter({ record, column }) {
+    const { value, items, onChange, multiple, label, placeholder } = column;
+    const isMultipleSelect = multiple !== undefined ? multiple : Is.array(value);
+    const onSelectingItems = selectedItems => {
+        onChange(record, selectedItems, column);
+    };
+    return React.createElement(SelectInput, { value: value || '', placeholder: placeholder, label: label, multiple: isMultipleSelect, onChange: onSelectingItems, items: items });
+}
+
+export default DropdownFormatter;
