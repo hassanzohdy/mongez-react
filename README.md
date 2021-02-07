@@ -34,6 +34,7 @@ OR
 - [tips](#tips)
 - [Command Line](#command-line)
    - (Wizard Command Line)(#wizard-command-line)
+- [Fresh Projects](#fresh-projects)
 - [Todo](#todo)
 
 
@@ -77,6 +78,10 @@ So your package.json file should look like:
 Now run `yarn wizard` or `npm run wizard` based on your node package manager.
 
 This command will open a new browser window with list of options.
+
+# Fresh Projects
+
+If you're going to start a new project, it's recommended to use [Mongez React Starter Project](https://github.com/hassanzohdy/mongez-react-start-project).
 
 # Todo
 
