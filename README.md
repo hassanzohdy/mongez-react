@@ -10,8 +10,6 @@ OR
 
 `npm i mongez`
 
-> Always use the package with latest React Js Version.
-
 # Table Of Contents
 - [Introduction](#react-mongez)
 - [Installation](#installation)
@@ -20,28 +18,38 @@ OR
 - [Forms](#forms)
 - [Components](#components)
 - [Hooks](#hooks)
-- [Utilities](#utils)
-- [User](#user)
+- [Admin](#admin)
 - [Events System](#events)
 - [Bus Manager](#bus-manager)
-- [Http && Api Endpoints](#http-endpoints)
-- [Layouts](#layouts)
-   - [Admin Layout](#admin-layout)
+- [HTTP && Api Endpoints](#http-endpoints)
+- [Layout](#layout)
 - [Routing](#routing)   
    - [Lazy Modules](#lazy-modules)
    - [Middleware](#middleware)
    - [Unified Layouts](#unified-layouts)
 - [Localization & Translations](#localization)
 - [Command Line](#command-line)
+- [User](#user)
+- [Utilities](#utils)
+- [tips](#tips)
 - [Todo](#todo)
+
+# Tips
+
+- Always use latest React Js Version.
+- Use Typescript With React Instead of Javascript.
+- This package heavily relies on [Material UI](https://material-ui.com/), give it a try.
 
 # Todo
 
-- Command Line: binnable
-- Viewable in command line modules builder
-- File Manager
-- Sortable Admin Table
+- Enhance Documentation.
+- Create Props Interface for each component. 
+- StoryBooks. 
+- File Manager.
+- Sortable Admin Table.
 - Enhance User Group permissions.
 - Encrypted Cache.
 - Create Bus Manager.
+- SSR?
+- Ideal Image Component, See [An Almost Ideal React Image Component](https://css-tricks.com/an-almost-ideal-react-image-component/).
 - Enhance Events System by creating a self-contained subscriber to be unsubscribed on component unmounting.
