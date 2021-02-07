@@ -32,13 +32,51 @@ OR
 - [User](#user)
 - [Utilities](#utils)
 - [tips](#tips)
+- [Command Line](#command-line)
+   - (Wizard Command Line)(#wizard-command-line)
 - [Todo](#todo)
+
 
 # Tips
 
 - Always use latest React Js Version.
 - Use Typescript With React Instead of Javascript.
 - This package heavily relies on [Material UI](https://material-ui.com/), give it a try.
+
+# Command Line
+
+Mongez provides list of command lines that will help utilize your app rapidly.
+
+## Wizard Command Line
+Command: `mongez wizard`
+
+Mongez Wizard is mainly built for creating admin/front-office modules that allow you to create a full module with bunch of inputs.
+
+Another Main Feature to `Mongez Wizard` is to allow you clone existing modules that are usually used in most of web applications either in the admin dashboard or in the website itself.
+
+### Wizard Options
+- Clone Modules
+- Create Admin Module
+- Create Front Office Module
+
+### Wizard Usage
+Update your `package.json` and add to `scripts` key `wizard: "mongez wizard"
+
+So your package.json file should look like:
+
+```json
+{
+   ...
+   "scripts": {
+      ...
+      "wizard": "mognez wizard"
+   }
+}
+```
+
+Now run `yarn wizard` or `npm run wizard` based on your node package manager.
+
+This command will open a new browser window with list of options.
 
 # Todo
 
@@ -50,6 +88,8 @@ OR
 - Enhance User Group permissions.
 - Encrypted Cache.
 - Create Bus Manager.
+- CLI
+   - Application Build
 - SSR?
 - Ideal Image Component, See [An Almost Ideal React Image Component](https://css-tricks.com/an-almost-ideal-react-image-component/).
 - Enhance Events System by creating a self-contained subscriber to be unsubscribed on component unmounting.
