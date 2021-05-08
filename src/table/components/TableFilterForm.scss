@@ -1,0 +1,34 @@
+.filterForm {
+    padding: 24px 0;
+
+    .filter-form-btn {
+        margin-top: 0.7rem;
+    }
+
+    .filter-autocomplete-root {
+        margin-top: 0.5rem;
+    }
+}
+
+html[dir="rtl"] {
+    .filter-autocomplete-root label {
+        margin-top: -0.5rem;
+    }
+}
+
+// Just until it is done
+// html[dir="rtl"] {
+//     .filterForm {
+//         .MuiInputLabel-outlined:not(.MuiInputLabel-shrink) {
+//             transform: translate(-14px, 14px) scale(1);
+//         }
+//     }
+// }
+
+html[dir="ltr"] {
+    .filterForm {
+        .MuiAutocomplete-root .MuiInputLabel-outlined:not(.MuiInputLabel-shrink) {
+            transform: translate(10px, 12px) scale(1);
+        }
+    }
+}

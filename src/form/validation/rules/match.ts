@@ -1,0 +1,16 @@
+import { trans } from '../../../localization';
+import { InputRule, RuleResponse } from './input-rule';
+
+export default {
+    rule: 'match',
+    requiresValue: false,
+    evaluate: function (value: string, props): RuleResponse {
+        const { match: matchingInputId, matchText } = props;
+        const matchingInput = document.getElementById(matchingInputId) as HTMLInputElement;
+
+        return {
+            hasError: matchingInput && matchingInput.value !== String(value),
+            errorMessage: trans('validation.match', trans(matchText || matchingInputId)),
+        } as RuleResponse;
+    },
+} as InputRule;

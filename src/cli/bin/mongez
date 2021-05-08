@@ -1,0 +1,30 @@
+#! /usr/bin/env node
+
+const { Command } = require('commander');
+
+const program = new Command();
+
+const commandsList = [
+    {
+        name: 'wizard',
+        options: [],
+        action: require('./wizard'),
+    },
+    {
+        name: 'build',
+        options: [],
+        action: require('./application-builder'),
+    }
+];
+
+for (let command of commandsList) {
+    const commandHandler = program.command(command.name);
+
+    for (let option of command.options) {
+        commandHandler.option(option);
+    }
+
+    commandHandler.action(command.action);
+}
+
+program.parse(process.argv);

@@ -1,5 +1,4 @@
 yarn.lock
 tsconfig.json
 rollup.config.ts
-src
 node_modules
