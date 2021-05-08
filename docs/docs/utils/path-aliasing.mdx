@@ -1,0 +1,151 @@
+---
+sidebar_position: 1
+title: Path Aliasing
+---
+
+## Path Aliasing
+
+Once **Mongez** is installed, it installs [link-module-alias](https://www.npmjs.com/package/link-module-alias) 
+which allows us to create aliases for paths that will enhance importing files with readable code.
+
+## How to set aliases
+
+Open `package.json` file then add **_moduleAliases** key in the file, so it should look like
+
+```json title="package.json"
+"scripts": {
+
+},
+"_moduleAliases": {
+    // list of modules
+},
+```
+
+## Defining our paths aliases
+
+Open `package.json` file in your editor and let's add some aliases
+
+```json title="package.json" {7}
+"scripts": {
+    // list of scripts
+},
+"_moduleAliases": {
+    "assets": "src/shared/assets",
+    "shared": "src/shared",
+    "modules": "src/modules",
+    "app": "src/modules/front-office"
+},
+```
+
+:::danger modules alias
+The **modules** alias **MUST BE** always existing as it defines how to load modules lazily.
+:::
+
+
+## Generating Aliases
+
+In `package.json` file, inside the **scripts** key, add **postinstall** key as follows:
+
+```json title="package.json" {6}
+  "scripts": {
+    "start": "npx react-scripts start",
+    "build": "npx react-scripts build",
+    "test": "npx react-scripts test",
+    "eject": "npx react-scripts eject",
+    "postinstall": "npx link-module-alias",
+    "wizard": "npx mongez wizard"
+  },
+  "_moduleAliases": {
+  },
+```
+
+Now le'ts run the command to generate the aliases
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'Yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+<TabItem value="yarn">
+
+  ```bash
+  yarn postinstall
+  ```
+</TabItem>
+  <TabItem value="npm">
+
+  ```bash
+  npm run postinstall
+  ```    
+  </TabItem>
+</Tabs>
+
+
+:::tip About postinstall
+This command is executed automatically after installing any new package either by **yarn** or **npm**.
+:::
+
+:::caution Take Care of upgrade
+When you upgrade any package, make sure to run the **postinstall** command 
+after upgrading the package.
+:::
+
+
+## Directories only, no files
+Please note to alias only **directories**, no files shall be aliased as it may sometimes cause to not reading the file.
+
+If you want to make an alias to a file, create a directory with the file name 
+that you want to alias then add `index.ts` or `index.tsx` if it has React Components.
+
+For example, if we want to make an alias to **RedButton** component in a `src/shared/components/RedButton.tsx` file
+
+In that case, we'll create a directory named **RedButton** and has inside it `index.tsx`, the code inside `RedButton.tsx` shall be inside `RedButton/index.tsx` file.
+
+Now let's hide to our `packageg.json` file and add our new alias
+
+
+```json title="package.json" {7}
+"scripts": {
+    // list of scripts
+},
+"_moduleAliases": {
+    "assets": "src/shared/assets",
+    "shared": "src/shared",
+    "modules": "src/modules",
+    "RedButton": "src/shared/components/RedButton",
+    "app": "src/modules/front-office"
+},
+```
+
+We can use it now as follows:
+
+```ts
+import RedButton from 'RedButton';
+```
+
+:::info Do not forget to generate the aliases again
+Once you add the module alias, run **yarn postinstall** or **npm run postinstall** to generate the new aliases.
+:::
+
+## Results of module aliasing
+
+For example, instead of writing the following:
+
+```ts
+import Button from './../../shared/components/Button';
+
+// Reset of code here 
+```
+
+We can write it as follows:
+
+```ts
+import Button from 'shared/components/Button';
+
+// Reset of code here 
+```
+

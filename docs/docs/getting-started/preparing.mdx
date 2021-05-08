@@ -1,0 +1,29 @@
+---
+sidebar_position: 3
+title: Preparing The Project
+---
+
+Once the package is successfully installed, now le'ts head to preparing our project
+
+## Path Aliasing
+
+One of the most important things to take care of, is using paths aliasing for files.
+
+```json title="package.json" {9}
+  "scripts": {
+    "start": "npx react-scripts start",
+    "build": "npx react-scripts build",
+    "test": "npx react-scripts test",
+    "eject": "npx react-scripts eject",
+    "postinstall": "npx link-module-alias",
+    "wizard": "npx mongez wizard"
+  },
+  "_moduleAliases": {
+    "assets": "src/shared/assets",
+    "shared": "src/shared",
+    "modules": "src/modules",
+    "app": "src/modules/front-office"
+  },
+```
+
+[See Path Aliasing in depth from here](../utils/path-aliasing)
