@@ -15,9 +15,14 @@ function HomepageHeader() {
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
           <Link
-            className="button button--secondary button--lg"
+            className="button button--secondary mx-2 button--lg"
             to="/docs/getting-started/introduction">
             Get Started Now
+          </Link>
+          <Link
+            className="button button--success button--lg"
+            to="https://github.com/hassanzohdy/mongez-react-start-project">
+            Mongez Starter Project
           </Link>
         </div>
       </div>

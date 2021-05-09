@@ -27,3 +27,33 @@ One of the most important things to take care of, is using paths aliasing for fi
 ```
 
 [See Path Aliasing in depth from here](../utils/path-aliasing)
+
+
+## Configuring Dot Env File
+
+Now after we're done with our `package.json` file, let's head to `.env` file.
+
+If you don't have it in your app, then create a new file and add the following to it
+
+```bash title=".env"
+
+GENERATE_SOURCEMAP=false
+
+REACT_APP_NAME="Project Title"
+REACT_APP_DESCRIPTION="Project Description"
+
+REACT_APP_COLOR=#000 
+
+REACT_APP_LOCALE_CODES_LIST=en,ar
+REACT_APP_LOCALE_CODE=en
+REACT_APP_DIRECTION=ltr
+
+
+REACT_APP_API_BASE_URL=https://site-name.com/api
+REACT_APP_API_KEY=xxx
+
+PUBLIC_URL=/https://site-name.com
+REACT_APP_PRODUCTION_BASE_PATH=/
+```
+
+For more details about every option, check [Dot Env Page](./../project-structure/dot-env).

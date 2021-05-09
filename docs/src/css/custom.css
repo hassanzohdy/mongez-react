@@ -16,6 +16,12 @@
   --ifm-color-primary-lightest: rgb(146, 224, 208);
   --ifm-code-font-size: 95%;
   --ifm-code-background: var(--ifm-color-primary);
+  
+  --ifm-color-danger: #ff4e4e;
+  --ifm-color-success: #5eaf54;
+  --ifm-color-success: #7baf54;
+  --ifm-color-warning: #c1c338;
+  --ifm-color-warning: #dea409;
 }
 
 a {
@@ -24,6 +30,8 @@ a {
 
 code {
   border-color: #16cdff;
+  color: #FFF;
+  font-weight: bold;
 }
 
 .docusaurus-highlight-code-line {
@@ -31,4 +39,9 @@ code {
   display: block;
   margin: 0 calc(-1 * var(--ifm-pre-padding));
   padding: 0 var(--ifm-pre-padding);
+}
+
+.mx-2 {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }

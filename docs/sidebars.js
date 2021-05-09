@@ -34,6 +34,11 @@ module.exports = {
           label: 'Preparing The Project',
           id: 'getting-started/preparing',
         },
+        {
+          type: 'doc',
+          label: 'Mongez Starter Project',
+          id: 'getting-started/starter-project',
+        },
       ]
     },
     {
@@ -50,14 +55,36 @@ module.exports = {
           label: 'Src Directory',
           items: [
             {
-              type: 'doc',
+              type: 'category',
               label: 'Modules Directory',
-              id: 'project-structure/src/modules'
+              items: [
+                {
+                  type: 'doc',
+                  label: 'Introduction',
+                  id: 'project-structure/src/modules/introduction'
+                }
+              ]
             },
             {
-              type: 'doc',
+              type: 'category',
               label: 'Shared Directory',
-              id: 'project-structure/src/shared'
+              items: [
+                {
+                  type: 'doc',
+                  label: 'Introduction',
+                  id: 'project-structure/src/shared/introduction'
+                },
+                {
+                  type: 'doc',
+                  label: 'Config File',
+                  id: 'project-structure/src/shared/config'
+                },
+                {
+                  type: 'doc',
+                  label: 'Modules file',
+                  id: 'project-structure/src/shared/modules'
+                },
+              ]
             },
             {
               type: 'doc',
@@ -356,6 +383,17 @@ module.exports = {
           type: 'doc',
           label: 'Backdrop',
           id: 'layout/backdrop'
+        },
+      ]
+    },
+    {
+      type: 'category',
+      label: 'Admin Dashboard',
+      items: [
+        {
+          type: 'doc',
+          label: 'Introduction',
+          id: 'admin/introduction'
         },
       ]
     },

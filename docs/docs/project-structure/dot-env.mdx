@@ -2,4 +2,51 @@
 title: Dot Env File
 ---
 
-Soon
+Mainly, this file `.env` should contain the general settings of your app.
+
+By default, this file is not created if you're using [CRA](https://create-react-app.dev).
+
+If you've cloned the [Starter Project](./../getting-started/starter-project), the file will be included automatically.
+
+Now let's see the base configurations for our file
+
+```bash title=".env"
+
+GENERATE_SOURCEMAP=false
+
+REACT_APP_NAME="Project Title"
+REACT_APP_DESCRIPTION="Project Description"
+
+REACT_APP_COLOR=#000
+
+REACT_APP_LOCALE_CODES_LIST=en,ar
+REACT_APP_LOCALE_CODE=en
+REACT_APP_DIRECTION=ltr
+
+REACT_APP_API_BASE_URL=https://site-name.com/api
+REACT_APP_API_KEY=xxx
+
+PUBLIC_URL=/https://site-name.com
+REACT_APP_PRODUCTION_BASE_PATH=/
+```
+
+## Options List
+
+| Key      | Description | |
+| ----------- | ----------- |
+| **GENERATE_SOURCEMAP**      | Wether to generate sourcemap in production, prefered to be `false`.       |
+| **REACT_APP_NAME**   | Will be used as default `title` for the application. |
+| **REACT_APP_DESCRIPTION**   | Will be used as default `meta description` for the application. |
+| **REACT_APP_COLOR**   | Defines the primary color for the application, Will be also used in `theme-color` meta tag. |
+| **REACT_APP_LOCALE_CODES_LIST**   | List of all available locale codes in your project, will be used in [Localization](./../localization/introduction), You can add more locale codes with commma separted between each other. |
+| **REACT_APP_LOCALE_CODE**   | Default locale code for the project. |
+| **REACT_APP_DIRECTION**   | Default direction for the project. can be `ltr` or `rtl`. |
+| **REACT_APP_API_BASE_URL**   | Base Url For Endpoint Api. |
+| **REACT_APP_API_KEY**   | Api Key if needed, this will send `Authorization`: `Key xxxx` header for non logged-in requests, more details in [Http Section](./../http/introduction). |
+| **PUBLIC_URL**   | Set the public url for production, will be set also in `base` tag. |
+| **REACT_APP_PRODUCTION_BASE_PATH**   | If the project is in a sub-directory, then set it is name so the router base path depends on its value, for example if the react project is in `https://apps.site-name.com/my-react-app` then its value will be `/my-react-app`. |
+
+
+:::danger Updating The File
+If you've updated any value in `.env` file, don't forget to run the react server again to listen to the changes as `.env` file is loaded only once on server initialization.
+:::
