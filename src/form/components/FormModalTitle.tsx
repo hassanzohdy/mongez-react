@@ -18,7 +18,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function FormModalTitle(props) {
+export type FormModalTitleProps = {
+    onClose: () => void;
+    saveButtonText: React.ReactNode;
+    title: React.ReactNode;
+}
+
+export default function FormModalTitle(props: FormModalTitleProps) {
     const classes = useStyles();
     return (
         <AppBar className={classes.appBar}>
@@ -30,7 +36,7 @@ export default function FormModalTitle(props) {
                     {props.title}
                 </Typography>
                 <SubmitButton color="inherit">
-                    {trans('save')}
+                    {props.saveButtonText}
                 </SubmitButton>
             </Toolbar>
         </AppBar>

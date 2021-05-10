@@ -1,5 +1,6 @@
 export { default as Theme } from "./components/Theme";
 export { default as Layout } from "./components/Layout";
+export { default as NotFound } from "./components/NotFound";
 export { LayoutWrapper, Main } from "./components/LayoutWrapper";
 export { default as styleSettings } from "./utils/style-settings";
 export { default as AccessDenied } from "./components/AccessDenied";

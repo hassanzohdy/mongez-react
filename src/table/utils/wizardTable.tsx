@@ -113,6 +113,7 @@ export interface CrudOptions {
             esc?: boolean;
             backdrop?: boolean;
             fullScreen?: boolean;
+            saveButtonText?: React.ReactNode;
             [key: string]: any;
         }
     }

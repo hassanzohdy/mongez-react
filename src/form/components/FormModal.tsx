@@ -2,17 +2,18 @@ import React from 'react';
 import Form from './Form';
 import PropTypes from 'prop-types';
 import { Modal } from './../../components';
+import { trans } from '../../localization';
 import FormModalTitle from './FormModalTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 
 export default function FormModal(props) {
-    const { title, onSubmit, ...otherDialogProps } = props;
+    const { title, onSubmit, saveButtonText = trans('save'), ...otherDialogProps } = props;
     return (
         <Modal plain {...otherDialogProps}>
             {modal => {
                 return (
                     <Form onSubmit={onSubmit}>
-                        <FormModalTitle onClose={modal.close} title={title} />
+                        <FormModalTitle onClose={modal.close} saveButtonText={saveButtonText} title={title} />
                         <DialogContent>
                             {props.children}
                         </DialogContent>

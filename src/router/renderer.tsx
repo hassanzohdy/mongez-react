@@ -1,12 +1,12 @@
 import React from 'react';
 import config from './../config';
-import NotFound from './NotFound';
 import Middleware from './middleware';
 import history from './router-history';
 import concatRoute from './concat-route';
 import { layoutsList } from './routes-list';
 import Redirect from '../components/Redirect';
 import { getCurrentBseAppPath } from './apps-list';
+import NotFound from './../layout/components/NotFound';
 import { Layout, Route as ModuleRoute } from './types';
 import modulesList, { ModuleInfo } from './modules-list';
 import { Route, RouteComponentProps } from 'react-router-dom';

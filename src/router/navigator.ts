@@ -10,7 +10,7 @@ import { getLocaleCodes, updateCurrentLocaleCode, getCurrentLocaleCode } from ".
 
 let currentFullRoute: string, fullRouteWithoutLocaleCode: string;
 
-let previousRoute = '/';
+let previousRoute: string = '/';
 
 /**
  * General full url for the given route
@@ -18,13 +18,13 @@ let previousRoute = '/';
  * @param {string} route 
  * @returns {string}
  */
-export function url(path: string) {
+export function url(path: string): string {
     return BASE_URL + path;
 }
 
 /**
  * Navigate back to the previous route
- * @returns {string} 
+ * @returns {void} 
  */
 export function navigateBack(defaultRoute: string = '') {
     if (!previousRoute) {
@@ -84,6 +84,7 @@ export function updateQueryString(queryString: string | any, navigate: boolean =
  * navigate to the given path
  * 
  * @param  {string} path 
+ * @returns {void}
  */
 export function navigateTo(path: string, localeCode: string | null = null) {
     // login >> valid
@@ -120,7 +121,7 @@ function goTo(path: string) {
  * 
  * @returns {string}
  */
-export function fullRoute() {
+export function fullRoute(): string {
     return history.location.pathname;
 }
 
@@ -129,7 +130,7 @@ export function fullRoute() {
  * 
  * @returns  {string}
  */
-export function currentRoute() {
+export function currentRoute(): string {
     let route = ltrim(fullRoute(), '/' + getCurrentLocaleCode()) || '/';
 
     route = ltrim(route, getCurrentBseAppPath());
@@ -183,6 +184,6 @@ export default function initiateNavigator() {
  * 
  * @returns  {boolean} 
  */
-export function hasInitialLocaleCode() {
+export function hasInitialLocaleCode(): boolean {
     return currentFullRoute !== fullRouteWithoutLocaleCode;
 }

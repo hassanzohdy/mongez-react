@@ -19,7 +19,7 @@ export function getLocalizedText(value: any): string {
     if (langMode === 'object' && Is.object(value)) {
         return value[Globals.localeCode];
     } else if (langMode === 'array' && Is.array(value)) {
-        return String((value.find(val => val.localeCode === Globals.localeCode) || {}).text);
+        return String((value.find(val => val.localeCode === Globals.localeCode) || {}).text || '');
     }
 
     return '';
