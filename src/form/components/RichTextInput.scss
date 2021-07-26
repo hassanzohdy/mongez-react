@@ -1,0 +1,12 @@
+html[dir="rtl"] {
+    .rdw-dropdown-carettoclose,
+    .rdw-dropdown-carettoopen {
+        right: auto !important;
+        left: 10%;
+    }
+}
+
+// .DraftEditor-alignRight .public-DraftStyleDefault-block {
+.DraftEditor-alignRight .notranslate.public-DraftEditor-content {
+    height: 400px;
+}
