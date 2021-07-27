@@ -34,8 +34,6 @@ type DatePickerProps = {
     [type: string]: any;
 }
 
-let m = null;
-
 export default function DatePicker(props: DatePickerProps) {
     let { onError = null, format = 'dd-mm-yyyy', required = false, label = null, minYear = null, clearable, yearsOnly = false, value, onChange, ...otherProps } = props;
     let givenValue = value;

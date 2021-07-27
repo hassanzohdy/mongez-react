@@ -19,6 +19,7 @@ export type InputProps = {
     id?: string;
     name?: string;
     icon?: React.ReactNode;
+    strict?: boolean;
     theme?: 'material' | 'bootstrap' | 'redit';
     iconPosition?: 'start' | 'end';
     classes?: {
@@ -117,7 +118,7 @@ function RedditTextField(props: TextFieldProps) {
 }
 
 function Input(props: InputProps, ref) {
-    const { onError = null, defaultValue = '', theme = config.get('form.input.theme'), icon, id = Random.id(), iconPosition = 'start', InputProps: baseInputProps, rules = config.get('form.input.rulesList', rulesList), value, readOnly, required, variant = config.get('form.input.variant', 'outlined'), onInput, name, ...otherProps } = props;
+    const { onError = null, strict = config.get('form.input.strict', true), defaultValue = '', theme = config.get('form.input.theme'), icon, id = Random.id(), iconPosition = 'start', InputProps: baseInputProps, rules = config.get('form.input.rulesList', rulesList), value, readOnly, required, variant = config.get('form.input.variant', 'outlined'), onInput, name, ...otherProps } = props;
     const [isControlledComponent] = React.useState(!Is.undefined(props.value));
 
     const [internalValue, setValue] = React.useState(
@@ -199,9 +200,9 @@ function Input(props: InputProps, ref) {
             }
         }
 
-        // if (! Is.undefined(defaultValue)) {
-        //     setValue(value);
-        // }
+        if (strict === false) {
+            setValue(value);
+        }
 
         if (inputValidation) {
             formInput.markAsInvalid(inputValidation.errorType, inputValidation.errorMessage);

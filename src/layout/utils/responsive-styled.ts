@@ -12,9 +12,11 @@ export default function responsiveStyled(component, mode = 'up') {
 
             const finalStyle = { ...style };
 
-            for (const breakpoint of ['sm', 'md', 'lg', 'xl']) {
+            for (const breakpoint of ['xs', 'sm', 'md', 'lg', 'xl']) {
                 if (finalStyle[breakpoint]) {
                     const breakpointText = theme.breakpoints[mode](breakpoint as Breakpoint);
+                    console.log(breakpoint, breakpointText);
+                    
                     finalStyle[breakpointText] = finalStyle[breakpoint];
                 }
             }
