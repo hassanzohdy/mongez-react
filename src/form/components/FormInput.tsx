@@ -7,7 +7,7 @@ import rulesList from '../utils/rules-list';
 import { trans } from './../../localization';
 import useFormInput from '../hooks/useFormInput';
 import { usePropDetector } from '../../hooks';
-import { Random, toInputName } from 'reinforcements';
+import { Random, toInputName, Obj } from 'reinforcements';
 import { InputRule } from '../validation/rules/input-rule';
 import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 import { Box, createStyles, fade, FormControl, InputAdornment, InputBase, InputLabel, makeStyles, OutlinedInputProps, Theme, withStyles } from '@material-ui/core';
@@ -310,7 +310,7 @@ function Input(props: InputProps, ref) {
         />;
 
         return (
-            <FormControl fullWidth className={clsx(classes.margin, otherProps?.classes?.formControl)}>
+            <FormControl fullWidth className={clsx(classes.margin, Obj.get(otherProps, 'classes.formControl'))}>
                 <InputLabel shrink htmlFor={otherProps['id']}>
                     {label}
                 </InputLabel>
