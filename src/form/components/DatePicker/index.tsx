@@ -1,19 +1,19 @@
 import React from 'react';
-import DateFnsUtils from '@date-io/date-fns'; 
 import moment from 'moment';
 import FormInput from '../FormInput';
+import DateFnsUtils from '@date-io/date-fns'; 
 import {
     DatePicker as MaterialDatePicker,
     MuiPickersUtilsProvider,
     // DatePickerProps as MaterialDatePickerProps,
 } from '@material-ui/pickers';
-import { If, Tooltip } from '../../../components';
-import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
-import { Box, FormHelperText, IconButton } from '@material-ui/core';
-import ClearIcon from "@material-ui/icons/Clear";
-import { trans } from '../../../localization';
-import useFormInput from '../../hooks/useFormInput';
 import Label from '../Label';
+import { trans } from '../../../localization';
+import ClearIcon from "@material-ui/icons/Clear";
+import { If, Tooltip } from '../../../components';
+import useFormInput from '../../hooks/useFormInput';
+import { Box, FormHelperText, IconButton } from '@material-ui/core';
+import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 type DatePickerProps = {
     clearable?: boolean;
@@ -74,7 +74,7 @@ export default function DatePicker(props: DatePickerProps) {
 
         onChange && onChange(date);
 
-        formInput.requiredValue(1);
+        formInput.requiredValue(date);
     };
 
     const onClear = () => {

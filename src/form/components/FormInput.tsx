@@ -13,19 +13,65 @@ import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 import { Box, createStyles, fade, FormControl, InputAdornment, InputBase, InputLabel, makeStyles, OutlinedInputProps, Theme, withStyles } from '@material-ui/core';
 
 export type InputProps = {
+    /**
+     * Input label
+     */
     label?: string;
+    /**
+     * Determine if the input is read only
+     */
     readOnly?: boolean;
+    /**
+     * Input validation rules list
+     */
     rules?: InputRule[];
+    /**
+     * Input id attribute
+     */
     id?: string;
+    /**
+     * Input name attribute
+     */
     name?: string;
+    /**
+     * Input icon attribute
+     */
     icon?: React.ReactNode;
+    /**
+     * When set to true, the component will interact as controlled/uncontrolled component, otherwise it will be interact as uncontrolled  
+     * 
+     * @defaults true
+     */
     strict?: boolean;
+    /**
+     * Current themes for the form input
+     * 
+     * @defaults material
+     */
     theme?: 'material' | 'bootstrap' | 'redit';
+    /**
+     * Icon position, works only with when icon prop is passed
+     */
     iconPosition?: 'start' | 'end';
+    /**
+     * List of available classes
+     */
     classes?: {
+        /**
+         * Error message class
+         */
         errorMessage?: string;
+        /**
+         * Input class
+         */
         input?: string;
+        /**
+         * Label class
+         */
         label?: string;
+        /**
+         * Form Control class
+         */
         formControl?: string;
     },
     /**
@@ -51,13 +97,13 @@ const useStyle = makeStyles((theme) => ({
 function Error({ error, classes }) {
     const internalClasses = useStyle();
 
-    if (!error) return null;
-
-    const className = clsx(
+    const className = React.useMemo(() => clsx(
         internalClasses.error,
         classes && classes.errorMessage,
         config.get('form.input.classes.errorMessage')
-    );
+    ), [classes, internalClasses]);
+
+    if (!error) return null;
 
     return <div className={className}>{error}</div>
 }
@@ -264,7 +310,7 @@ function Input(props: InputProps, ref) {
         />;
 
         return (
-            <FormControl fullWidth className={classes.margin}>
+            <FormControl fullWidth className={clsx(classes.margin, otherProps?.classes?.formControl)}>
                 <InputLabel shrink htmlFor={otherProps['id']}>
                     {label}
                 </InputLabel>

@@ -26,7 +26,8 @@ export default function useFormInput(inputOptions: FormInput, memoChange = []): 
 
         if (formInput.required && !formInput.validate) {
             formInput.validate = () => {
-                if (Is.empty(formInput.value)) {
+                // if (Is.empty(formInput.value)) {
+                if (! formInput.value) {
                     return formInput.markAsInvalid('required', trans('validation.required'));
                 }
 
@@ -36,7 +37,8 @@ export default function useFormInput(inputOptions: FormInput, memoChange = []): 
 
         if (!formInput.requiredValue) {
             formInput.requiredValue = value => {
-                if (!Is.empty(value)) {
+                // if (!Is.empty(value)) {
+                if (value) {
                     formInput.markAsClean();
                 } else if (formInput.required) {
                     formInput.markAsInvalid('required', trans('validation.required'));
