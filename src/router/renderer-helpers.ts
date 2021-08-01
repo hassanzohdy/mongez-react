@@ -1,5 +1,5 @@
-import concatRoute from './concat-route';
 import { Module } from "./types";
+import concatRoute from './concat-route';
 import { getLocaleCodes } from '../localization';
 import { appsList, setCurrentBseAppPath, modulesList } from "./apps-list";
 

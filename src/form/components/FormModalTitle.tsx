@@ -1,6 +1,5 @@
 import React from 'react';
 import SubmitButton from './SubmitButton';
-import { trans } from './../../localization';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import CloseIcon from '@material-ui/icons/Close';

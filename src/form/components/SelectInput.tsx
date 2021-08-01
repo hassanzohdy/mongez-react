@@ -3,16 +3,15 @@ import Label from './Label';
 import Is from '@flk/supportive-is';
 import config from './../../config';
 import { Random } from 'reinforcements';
+import HiddenInput from './HiddenInput';
 import { trans } from './../../localization';
-import { toInputName } from 'reinforcements';
-import { getItem, getItems } from '../utils/select-items';
 import useFormInput from '../hooks/useFormInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import { getItem, getItems } from '../utils/select-items';
 import { getLocalizedText } from '../../localization/utils';
-import { Select, SelectProps as BaseSelectProps, FormHelperText, PropTypes } from '@material-ui/core';
 import { selectItems, RenderSelectedValues } from './SelectInputHelpers';
-import HiddenInput from './HiddenInput';
+import { Select, SelectProps as BaseSelectProps, FormHelperText } from '@material-ui/core';
 
 function defaultMapItem(item) {
     if (Is.string(item)) {

@@ -1,31 +1,6 @@
 import Is from '@flk/supportive-is';
 import { trans } from './../localization';
-
-export type Role = {
-    /**
-     * Role Displayed Text
-     */
-    text: string;
-    /**
-     * Role Server Name
-     */
-    name: string;
-};
-
-export type PermissionGroup = {
-    /**
-     * Permission Displayed Text
-     */
-    text: string;
-    /**
-     * Permission Server Name
-     */
-    name: string;
-    /**
-     * List of Roles
-     */
-    roles: Role[];
-};
+import { PermissionGroup, Role } from './types';
 
 /**
  * Ignore from the given permissions the given roles

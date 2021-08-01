@@ -10,7 +10,7 @@ export default class BaseCacheEngine implements CacheDriverInterface {
     /**
      * Prefix key 
      */
-    public prefixKey: string = config.get('cache.prefix');
+    public prefixKey: string;
 
     /**
      * Set data into storage engine
@@ -32,7 +32,7 @@ export default class BaseCacheEngine implements CacheDriverInterface {
     public get(key: string, defaultValue: any = null) {
         let value = this.storage.getItem(this.getKey(key));
 
-        if (! value) return defaultValue;
+        if (!value) return defaultValue;
 
         try {
             return JSON.parse(value).data;
@@ -58,6 +58,17 @@ export default class BaseCacheEngine implements CacheDriverInterface {
      * @returns {string}
      */
     public getKey(key: string): string {
-        return (this.prefixKey || '') + key;
+        return (this.getPrefixKey() || '') + key;
+    }
+
+    /**
+     * Get prefix key
+     * 
+     * @returns {string}
+     */
+    protected getPrefixKey(): string {
+        if (this.prefixKey) return this.prefixKey;
+
+        return this.prefixKey = config.get('cache.prefix');
     }
 }

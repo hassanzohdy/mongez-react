@@ -1,26 +1,36 @@
-import cache from './../cache';
+import config from '../config';
 import { Obj } from 'reinforcements';
+import { UserInterface, UserInfo } from './types';
+import cache, { CacheDriverInterface } from './../cache';
 
-interface UserInfo {
-    accessToken?: string
-};
-
-const DEFAULT_CACHE_KEY = 'user';
-
-export default class User {
+export default class User implements UserInterface {
     /**
-     * 
+     * Permissions list
      */
-    protected cacheKey: string;
     protected permissions = {};
+
+    /**
+     * User data
+     */
     protected userData: object = {};
+
+    /**
+     * Events listeners
+     */
     protected listeners = {};
 
     /**
      * Constructor
      */
-    constructor() {
-        this.setCacheKey(this.getCacheKey());
+    public constructor(protected cacheDriver: CacheDriverInterface = config.get('user.storageDriver', cache)) {
+        this.boot();
+    }
+    
+    /**
+     * Initialize the user
+     */
+    public boot() {               
+        this.userData = this.cacheDriver.get(this.getCacheKey(), {}) as UserInfo;
     }
 
     /**
@@ -29,17 +39,7 @@ export default class User {
      * @returns {string}
      */
     public getCacheKey(): string {
-        return DEFAULT_CACHE_KEY;
-    }
-
-    /**
-     * Set cache key for user 
-     * 
-     * @param {string} cacheKey 
-     */
-    public setCacheKey(cacheKey: string) {
-        this.cacheKey = cacheKey;
-        this.userData = cache.get(this.cacheKey, {});
+        return config.get('user.cacheKey', 'user');
     }
 
     /**
@@ -47,7 +47,7 @@ export default class User {
      * 
      * @returns {boolean}
      */
-     public isLoggedIn() {
+    public isLoggedIn(): boolean {
         return this.getAccessToken().length > 0;
     }
 
@@ -56,8 +56,8 @@ export default class User {
      * 
      * @returns {boolean}
      */
-     public isNotLoggedIn() {
-        return ! this.isLoggedIn();
+    public isNotLoggedIn(): boolean {
+        return !this.isLoggedIn();
     }
 
     /**
@@ -65,10 +65,10 @@ export default class User {
      * It will store the data in the storage engine i.e Local Storage
      * But will not make the ajax request
      * 
-     * @param  {object} userData 
+     * @param  {UserInfo} userData 
      * @returns {void}
      */
-    public login(userData: object) {
+    public login(userData: UserInfo) {
         this.userData = userData;
 
         for (let key in userData) {
@@ -77,7 +77,7 @@ export default class User {
             }
         }
 
-        cache.set(this.cacheKey, userData);
+        this.cacheDriver.set(this.getCacheKey(), userData);
     }
 
     /**
@@ -85,7 +85,7 @@ export default class User {
      */
     public logout() {
         this.userData = {};
-        cache.remove(this.cacheKey);
+        this.cacheDriver.remove(this.getCacheKey());
     }
 
     /**
@@ -95,6 +95,15 @@ export default class User {
      */
     public getAccessToken() {
         return this.get('accessToken', '');
+    }
+
+    /**
+     * Update current access token
+     * 
+     * @param {string} newAccessToken 
+     */
+    public updateAccessToken(newAccessToken: string): void {
+        this.set('accessToken', newAccessToken);
     }
 
     /**
@@ -110,7 +119,7 @@ export default class User {
 
         Obj.set(this.userData, key, value);
 
-        cache.set(this.cacheKey, this.userData);
+        this.cacheDriver.set(this.getCacheKey(), this.userData);
     }
 
     /**
@@ -180,6 +189,15 @@ export default class User {
     }
 
     /**
+     * Get all user data
+     * 
+     * @returns {UserInfo}
+     */
+    public all(): UserInfo {
+        return this.userData;
+    }
+
+    /**
      * Trigger change for the given key
      * 
      * @param  {string} key
@@ -191,14 +209,5 @@ export default class User {
         for (let callback of this.listeners[key]) {
             callback(newValue, oldValue);
         }
-    }
-
-    /**
-     * Get all user data
-     * 
-     * @returns {object}
-     */
-    public all() {
-        return this.userData;
     }
 }
