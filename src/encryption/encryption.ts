@@ -11,6 +11,10 @@ import CryptoJS from 'crypto-js';
  * @returns {string} 
  */
 export function encrypt(value: any, key: string = config.get('encryption.key'), driver: any = config.get('encryption.driver', AES)): string {
+    if (!key) {
+        throw new Error('Missing Encryption key, please define it in the config in "encryption.key" key');
+    }
+
     return driver.encrypt(JSON.stringify({
         data: value,
     }), key).toString();
@@ -25,6 +29,10 @@ export function encrypt(value: any, key: string = config.get('encryption.key'), 
  * @returns {string|null}
  */
 export function decrypt(cypher: string, key: string = config.get('encryption.key'), driver: any = AES): string | null {
+    if (!key) {
+        throw new Error('Missing Encryption key, please define it in the config in "encryption.key" key');
+    }
+
     try {
         let value = driver.decrypt(cypher, key).toString(CryptoJS.enc.Utf8);
 
