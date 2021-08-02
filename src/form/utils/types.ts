@@ -13,7 +13,7 @@ export type FormInput = {
     onError?: (errorType: string, message: string) => void;
     requiredValue?: (value: any) => void;
     state?: 'clean' | 'invalid';
-    markAsInvalid?: (errorType:string, errorMessage: string) => false;
+    markAsInvalid?: (errorType: string, errorMessage: string) => false;
 };
 
 export type FormConfigSettings = {
@@ -25,6 +25,12 @@ export type FormConfigSettings = {
             placeholder?: string;
         },
         input?: {
+            /**
+             * When set to true, the component will interact as controlled/uncontrolled component, otherwise it will be interact as uncontrolled  
+             * 
+             * @defaults true
+             */
+            strict?: boolean;
             /**
              * Form Input Style 
              * 
