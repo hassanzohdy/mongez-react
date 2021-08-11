@@ -13,6 +13,7 @@ export type AdminDashboardSettings = {
         header: {
             locales?: boolean;
             logout?: Function;
+            websiteUrl?: string | false | null;
             notifications?: {
                 total?(setTotal: Function): void;
                 removable?: boolean;

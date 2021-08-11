@@ -1,9 +1,53 @@
+import config from '../config';
 import { trans } from '../localization';
-import { setTitle, setDescription, setImage, setUrl, setCanonicalUrl } from './../utils/metadata';
+import { setTitle, setDescription, setImage, setUrl, setCanonicalUrl, setKeywords } from './../utils/metadata';
 
-export default function Helmet(props) {
-    let { title, id = null, image = null, url = true, canonicalUrl = null, appendAppName = true, description = null, bodyClass = null } = props;
-    setTitle(trans(title) + (appendAppName ? ' | ' + trans('appName') : ''));
+type HelmetProps = {
+    /**
+     * Page Title
+     */
+    title?: string;
+    /**
+     * Page id, appended to body tag
+     */
+    id?: string | null;
+    /**
+     * body classes
+     */
+    bodyClass?: string;
+    /**
+     * Page url, if set to true then the url will be automatically generated 
+     */
+    url?: string | true;
+    /**
+     * Page meta description
+     */
+    description?: string;
+    /**
+     * Page meta image
+     */
+    image?: string | null;
+    /**
+     * If set to true, then the app name will be appended after the provided title
+     */
+    appendAppName?: boolean;
+    /**
+     * The separator that will be added after page title and before the application name
+     */
+    appNameSeparator?: string;
+    /**
+     * Page meta keywords
+     */
+    keywords?: string | null;
+    /**
+     * Page canonical url
+     */
+    canonicalUrl?: string | null;
+}
+
+export default function Helmet(props: HelmetProps) {
+    let { title, id = null, image = null, url = true, appNameSeparator = config.get('meta.appNameSeparator', '|'), keywords = null, canonicalUrl = null, appendAppName = true, description = null, bodyClass = null } = props;
+    setTitle(trans(title) + (appendAppName ? ` ${appNameSeparator} ` + trans('appName') : ''));
 
     if (description) {
         setDescription(description);
@@ -22,11 +66,15 @@ export default function Helmet(props) {
     }
 
     if (!canonicalUrl && url) {
-        canonicalUrl = url;
+        canonicalUrl = url as string;
     }
 
     if (canonicalUrl) {
         setCanonicalUrl(canonicalUrl);
+    }
+
+    if (keywords) {
+        setKeywords(keywords);
     }
 
     if (bodyClass) {

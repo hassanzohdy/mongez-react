@@ -57,9 +57,9 @@ export default function Header(props) {
     to: websiteUrl,
     relative: false
   } : {
-      to: "/",
-      baseApp: "/"
-    }
+    to: "/",
+    baseApp: "/"
+  }
 
   const localeCodesList = getLocaleCodes().map(localeCode => {
     return {
@@ -98,13 +98,15 @@ export default function Header(props) {
         <div className={classes.grow} />
 
         {/* Website URL */}
-        <Tooltip title={trans('website')}>
-          <Link target="_blank" color="inherit" {...baseAppUrlOptions}>
-            <IconButton color="inherit">
-              <PublicIcon />
-            </IconButton>
-          </Link>
-        </Tooltip>
+        {websiteUrl !== false &&
+          <Tooltip title={trans('website')}>
+            <Link target="_blank" color="inherit" {...baseAppUrlOptions}>
+              <IconButton color="inherit">
+                <PublicIcon />
+              </IconButton>
+            </Link>
+          </Tooltip>
+        }
 
         {notificationsSettings && <Notifications {...notificationsSettings} />}
 

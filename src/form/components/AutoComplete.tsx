@@ -325,7 +325,7 @@ export default function AutoComplete(props: any) {
                     // if its scalar, then it means the items list is being lazy loaded.
                     if (Is.scalar(item)) return '';
 
-                    return item.label;
+                    return String(item.label);
                 }}
                 renderInput={(params: any) => {
                     return <TextField
