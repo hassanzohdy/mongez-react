@@ -38,7 +38,7 @@ type HelmetProps = {
     /**
      * Page meta keywords
      */
-    keywords?: string | null;
+    keywords?: string | null | Array<string>;
     /**
      * Page canonical url
      */
