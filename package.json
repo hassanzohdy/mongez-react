@@ -1,6 +1,6 @@
 {
   "name": "mongez",
-  "version": "1.3.11",
+  "version": "1.3.12",
   "description": "A Full React Js Framework Structure builder with many helpers and components.",
   "main": "./index.js",
   "typings": "./index.d.ts",

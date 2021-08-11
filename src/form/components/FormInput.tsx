@@ -349,7 +349,7 @@ function Input(props: InputProps, ref) {
     return (
         <TextField
             error={Boolean(error)}
-            label={<Label label={label} required={isRequired} />}
+            label={<Label label={label} shrink required={isRequired} />}
             margin={props.margin || 'normal'}
             inputRef={setInputRef}
             onInput={validateInput}
