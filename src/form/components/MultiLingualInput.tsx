@@ -29,7 +29,7 @@ const LanguageFlag = styled('img')({
 });
 
 export default function MultiLingualInput(props: MultiLingualInputProps): React.ReactElement {
-    let { component: Component, langMode = getLangMode(), name, label, value, inline, placeholder, autoFocus, ...otherProps } = props;
+    let { component: Component, langMode = getLangMode(), name, label, value, defaultValue, inline, placeholder, autoFocus, ...otherProps } = props;
 
     let firstLocaleCode;
 
@@ -40,7 +40,7 @@ export default function MultiLingualInput(props: MultiLingualInputProps): React.
             <For array={localeCodes} render={(localeCode, index) => {
                 const localeInfo = config.get('locales.' + localeCode);
 
-                let inputValue = value;
+                let inputValue = value || defaultValue;
                 let inputAutoFocus = false;
                 let inputPlaceholder = placeholder;
                 let languageContent = localeInfo.name;
