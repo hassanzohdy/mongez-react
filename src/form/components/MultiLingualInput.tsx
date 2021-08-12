@@ -40,7 +40,7 @@ export default function MultiLingualInput(props: MultiLingualInputProps): React.
             <For array={localeCodes} render={(localeCode, index) => {
                 const localeInfo = config.get('locales.' + localeCode);
 
-                let inputValue = value || defaultValue;
+                let inputValue = value || defaultValue;                
                 let inputAutoFocus = false;
                 let inputPlaceholder = placeholder;
                 let languageContent = localeInfo.name;
@@ -82,11 +82,19 @@ export default function MultiLingualInput(props: MultiLingualInputProps): React.
 
                 firstLocaleCode = localeCode;
 
+                const componentProps = {...otherProps};
+
+                if (defaultValue) {
+                    componentProps['defaultValue'] = inputValue;
+                } else if (value) {
+                    componentProps['value'] = inputValue;
+                }
+
                 return (
                     <GridItem {...itemProps}>
                         <FlagWrapper>{languageContent}</FlagWrapper>
                         {langMode === 'array' && <HiddenInput name={`${name}.${index}.localeCode`} value={localeCode} />}
-                        <Component {...otherProps} direction={localeInfo.direction} localeCode={localeCode} value={inputValue} autoFocus={inputAutoFocus} label={translateFrom(localeCode, label)} placeholder={translateFrom(localeCode, inputPlaceholder)} name={inputName} />
+                        <Component {...componentProps} direction={localeInfo.direction} localeCode={localeCode} autoFocus={inputAutoFocus} label={translateFrom(localeCode, label)} placeholder={translateFrom(localeCode, inputPlaceholder)} name={inputName} />
                     </GridItem>
                 )
             }} />
