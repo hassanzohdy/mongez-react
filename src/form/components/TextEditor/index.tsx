@@ -17,6 +17,7 @@ interface TextEditorProps {
   direction?: 'ltr' | 'rtl';
   apiKey?: string;
   value?: string;
+  strict?: boolean;
   disabled?: boolean;
   name?: string;
   required?: boolean;
@@ -41,6 +42,7 @@ export default function TextEditor({
   inline = false,
   name = null,
   value,
+  strict = config.get('form.input.strict', true),
   placeholder = null,
   defaultValue = null,
   label = null,
@@ -105,7 +107,9 @@ export default function TextEditor({
 
     onChange(value);
 
-    setValue(value);
+    if (strict === false) {
+      setValue(value);
+    }
   }
 
   const hasError = Boolean(error);
@@ -125,7 +129,7 @@ export default function TextEditor({
         apiKey={apiKey}
         initialValue={defaultValue}
         disabled={disabled}
-        textareaName={name}
+        textareaName={toInputName(name)}
         outputFormat={outputFormat}
         value={value}
         onEditorChange={updateValue}
