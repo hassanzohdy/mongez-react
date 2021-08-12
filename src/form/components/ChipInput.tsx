@@ -41,7 +41,7 @@ export default function ChipInput(props: ChipProps) {
             setValue(newValues);
         }
 
-        props.onChange(newValues);
+        props.onChange && props.onChange(newValues);
     };
 
     return (
@@ -55,6 +55,9 @@ export default function ChipInput(props: ChipProps) {
                 label={props.label}
                 newChipKeys={['Enter', ',']}
                 variant="outlined"
+                InputLabelProps={{
+                    shrink: true
+                }}
                 alwaysShowPlaceholder
                 placeholder={props.placeholder ? trans(props.placeholder) : ''}
                 value={values}

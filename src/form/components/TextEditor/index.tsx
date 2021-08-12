@@ -5,6 +5,7 @@ import Is from "@flk/supportive-is";
 import config from "../../../config";
 import initConfig from "./initConfig";
 import Globals from "../../../globals";
+import { toInputName } from 'reinforcements';
 import { trans } from "../../../localization";
 import { Editor } from "@tinymce/tinymce-react";
 import { usePropDetector } from "../../../hooks";
@@ -58,6 +59,10 @@ export default function TextEditor({
     let editorLabel = (isLabelAndPlaceholderInterchangeable === true ? (label || placeholder) : label);
 
     let editorPlaceholder = placeholder;
+
+    if (name) {
+      name = toInputName(name);
+    }
 
     if (Is.string(editorLabel)) {
       editorLabel = trans(editorLabel as string);
