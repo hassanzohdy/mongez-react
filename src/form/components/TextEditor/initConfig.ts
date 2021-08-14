@@ -1,5 +1,6 @@
 const initConfig = {
   height: 500,
+  contextmenu: 'copy cut paste | link image table |align italic bold underline strikethrough forecolor backcolor lineheight blockformats codeformat fontformats fontsizes subscript superscript formats | undo redo removeformat selectall',
   fontsize_formats: "6px 8px 10px 12px 14px 16px 18px 20px 22px 24px 28px 36px",
   menubar: "insert edit format",
   font_formats: 

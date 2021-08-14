@@ -1,4 +1,4 @@
-import "./style.css";
+import "./style.scss";
 import React from "react";
 import Label from './../Label';
 import Is from "@flk/supportive-is";
@@ -100,9 +100,9 @@ export default function TextEditor({
 
   const updateValue = value => {
     // allow autofocus and set the pointer at the end of the text
-    const editor = editorRef.current;
-    editor.selection.select(editor.getBody(), true);
-    editor.selection.collapse(false);
+    // const editor = editorRef.current;
+    // editor.selection.select(editor.getBody(), true);
+    // editor.selection.collapse(false);
     formInput.requiredValue(value);
 
     onChange(value);
