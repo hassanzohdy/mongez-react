@@ -10,7 +10,7 @@ import MaterialTableBody from '@material-ui/core/TableBody';
 import TableRowContext from '../Context/TableRowContext';
 
 export default function TableBody({ isLoading }) {
-    const { records, options, updateRecords } = useTable();
+    const { records, options, updateRecords, displayedColumns } = useTable();
 
     let tableRows;
 
@@ -18,7 +18,7 @@ export default function TableBody({ isLoading }) {
         tableRows = (
             <TableRow>
                 <TableCell align="center" colSpan={options.table.columns.length}>
-                    <TextCenter>{trans('loading')}</TextCenter>
+                    <TextCenter>{trans('table.loading')}</TextCenter>
                 </TableCell>
             </TableRow>
         );
@@ -26,7 +26,7 @@ export default function TableBody({ isLoading }) {
         tableRows = (
             <TableRow>
                 <TableCell align="center" colSpan={options.table.columns.length}>
-                    {trans('noResults')}
+                    {trans('table.noResults')}
                 </TableCell>
             </TableRow>
         );
@@ -51,7 +51,7 @@ export default function TableBody({ isLoading }) {
             return (
                 <TableRowContext.Provider key={record.id} value={tableRowValue}>
                     <TableRow>
-                        {record.columnsList.map((column, columnIndex) => {
+                        {record.columnsList.filter(column => displayedColumns.includes(column.key)).map((column, columnIndex) => {
                             // if (column.cell) return column.cell;
 
                             column.value = Obj.get(column, 'value', Obj.get(record, column.key));

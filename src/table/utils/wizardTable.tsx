@@ -22,7 +22,7 @@ export type PermissionsList = {
 }
 
 export interface TableColumn {
-    key?: string;
+    key: string;
     heading: string;
     sortBy?: string;
     sortable?: boolean;
@@ -31,6 +31,7 @@ export interface TableColumn {
     settings?: any;
     tooltip?: Function;
     formatter?: Function;
+    displayMode?: 'always' | 'default' | 'optional';
 }
 
 export interface FilterOption {

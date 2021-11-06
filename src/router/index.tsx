@@ -10,4 +10,4 @@ export { queryString, hash, BASE_NAME, BASE_URL } from './router-history';
 export { firstSegmentOfRoute, isPartOfLazyModules } from './renderer-helpers';
 export type { Route, Layout, GroupOptions, BasicComponentProps, RouterConfigurations, App, Module } from './types';
 export { appsList, modulesList, setApps, addBaseAppPath, setCurrentBseAppPath, getCurrentBseAppPath } from './apps-list';
-export { url, navigateTo, navigateBack, updateQueryString, hasInitialLocaleCode, switchLang, refresh, fullRoute, currentRoute } from './navigator';
+export { url, navigateTo, navigateBack, updateQueryString, hasInitialLocaleCode, switchLang, refresh, fullRoute, currentRoute, objectToQueryString as toQueryString } from './navigator';

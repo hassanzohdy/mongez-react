@@ -6,13 +6,25 @@ import MultiDirection from './MultiDirection';
 import styleSettings from '../utils/style-settings';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { setExternalFontFamily } from '../utils/font-family-switcher';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import Is from '@flk/supportive-is';
 
 export default function Theme(props) {
-    const fontFamily = styleSettings.get(`fontFamily.${Globals.localeCode}.fontFamily`);
-    const fontFamilySrc = styleSettings.get(`fontFamily.${Globals.localeCode}.src`);
+    let fontFamily = styleSettings.get(`fontFamily.${Globals.localeCode}`);
 
-    setExternalFontFamily(fontFamilySrc);
+    if (Is.plainObject(fontFamily)) {
+        fontFamily = [fontFamily];
+    }
+
+    const fonts = [];
+
+    for (const font of fontFamily) {
+        fonts.push(font.fontFamily);
+        setExternalFontFamily(font.src);
+    }
+
+    // const fontFamily = styleSettings.get(`fontFamily.${Globals.localeCode}.fontFamily`);
+    // const fontFamilySrc = styleSettings.get(`fontFamily.${Globals.localeCode}.src`);
 
     const themeSettings: any = {
         // palette: {
@@ -22,12 +34,12 @@ export default function Theme(props) {
         status: 'orange',
     };
 
-    if (fontFamily) {
+    if (!Is.empty(fonts)) {
         themeSettings.typography = {
-            fontFamily
+            fontFamily: fonts.map(font => `"${font}"`).join(','),
         };
     }
-
+    
     if (styleSettings.get('colors.primary')) {
         Obj.set(themeSettings, 'palette.primary.main', styleSettings.get('colors.primary'));
     }
@@ -36,7 +48,7 @@ export default function Theme(props) {
         Obj.set(themeSettings, 'palette.secondary.main', styleSettings.get('colors.secondary'));
     }
 
-    const theme = createMuiTheme(themeSettings);
+    const theme = createTheme(themeSettings);
 
     return (
         <MultiDirection>

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { InputProps } from './FormInput';
 import { trans } from './../../localization';
 import { toInputName } from 'reinforcements';
 import { DISABLE_INPUT_CHANGE } from '../utils/flags';
@@ -8,7 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import HiddenInput from './HiddenInput';
 import config from '../../config';
 
-export type CheckboxProps = InputProps & {
+export type CheckboxProps =  {
     checked?: boolean;
     readOnly?: boolean;
     onChange?(checked: boolean, value: string, e: any);
@@ -16,6 +15,7 @@ export type CheckboxProps = InputProps & {
     labelClasses?: Object;
     uncheckedValue?: any;
     labelPlacement?: 'end' | 'start' | 'top' | 'bottom';
+    [id: string]: any;
 }
 
 export default function withCheckbox(WrappedCheckboxComponent): React.FC {

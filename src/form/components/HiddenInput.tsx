@@ -1,12 +1,19 @@
-import React from 'react';
+import Is from '@flk/supportive-is';
 import { toInputName } from 'reinforcements';
-
-export type HiddenInputProps = {
-    name: string;
-    value: string;
-    [id: string]: any;
-};
+import { HiddenInputProps } from '../utils/types';
 
 export default function HiddenInput({ name, value, ...props }: HiddenInputProps) {
-    return <input type="hidden" name={toInputName(name)} value={value} {...props} />
+    if (! name) return null;
+
+    if (! Is.array(value)) {
+        value = [value as string];
+    }
+
+    return (
+        <>
+            {(value as string[]).map((value, index) => (
+                <input key={index} type="hidden" name={toInputName(name)} value={value} {...props} />
+            ))} 
+        </>
+    )
 }

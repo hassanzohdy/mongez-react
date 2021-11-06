@@ -2,9 +2,11 @@ import React from 'react';
 import { styled } from '@material-ui/core';
 import { RequiredSpan } from './FormHelpers';
 import { trans } from './../../localization';
+import config from './../../config';
 
-const FormLabel = styled('span')({
+const FormLabel = styled('label')({
     display: 'inline-block',
+    fontWeight: 'bold',
 });
 
 export type LabelProps = {
@@ -17,7 +19,7 @@ export type LabelProps = {
 }
 
 export default function Label(props: LabelProps) {
-    let { label, children, component: Component, required, ...otherProps } = props;
+    let { label, children, component: Component = config.get('form.input.label', FormLabel), required, ...otherProps } = props;
 
     if (!label && ! children) return null;
 
@@ -28,8 +30,4 @@ export default function Label(props: LabelProps) {
             <RequiredSpan required={required} />
         </Component>
     )
-}
-
-Label.defaultProps = {
-    component: FormLabel,
 }

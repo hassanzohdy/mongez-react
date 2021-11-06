@@ -1,5 +1,5 @@
 import { trans } from './../../../localization';
-import { InputRule, RuleResponse } from './input-rule';
+import { InputRule, RuleResponse } from './../../utils/types';;
 
 export default {
     rule: 'pattern',

@@ -1,1 +1,1 @@
-export { encrypt, decrypt } from './encryption';
+export { encrypt, decrypt, sha1, sha256, md5 } from './encryption';

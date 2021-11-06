@@ -1,0 +1,15 @@
+:global(#root) {
+    .input {
+        overflow-y: auto;
+    }
+    .root {
+        [class~=rc-md-navigation] {
+            background-color: #FFF;
+            [class~=button] {
+                &:hover {
+                    background-color: #eee;
+                }
+            }
+        }
+    }
+}

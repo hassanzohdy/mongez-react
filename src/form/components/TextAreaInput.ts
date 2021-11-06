@@ -1,8 +1,8 @@
 import withInputType from '../utils/withInputType';
 
-const TextAreaInput = withInputType('email', {
+const TextAreaInput = withInputType('textarea', {
     rows: 8,
-    multiline: true,
-}); 
+    // multiline: true,
+});
 
 export default TextAreaInput;

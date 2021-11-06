@@ -4,7 +4,7 @@ import { FormConfigSettings } from "./../form";
 import { LangModeType } from "./../utils/CommonTypes";
 import { CacheSettings } from "../cache/CacheSettings";
 import { RouterConfigurations } from "../router/types";
-import { AdminDashboardSettings } from "../admin/misc/types";
+import { AdminDashboardSettings } from "../admin/utils/types";
 import { TimeAgoConfiguration } from "../components/config-types";
 import { EncryptionSettings } from "../encryption/EncryptionSettings";
 

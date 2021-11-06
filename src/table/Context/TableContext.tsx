@@ -38,7 +38,7 @@ export interface ITableContext {
     /**
      * Page Number
      */
-     pageNumber?: number;
+    pageNumber?: number;
     /**
      * Set Current Page Number 
      */
@@ -58,14 +58,22 @@ export interface ITableContext {
     /**
      * Set Sorting Information
      */
-     setSortBy?: Function;
-     /**
-      * Sorting information
-      */
-      sortingColumn?: {
-          sortBy?: string;
-          sortDirection?: string;
-      };
+    setSortBy?: Function;
+    /**
+     * Sorting information
+     */
+    sortingColumn?: {
+        sortBy?: string;
+        sortDirection?: string;
+    };
+    /**
+     * Displayed columns
+     */
+    displayedColumns?: any[];
+    /**
+     * Update displayed columns
+     */
+    setDisplayedColumns?: Function;
 };
 
 const tableOptions: ITableContext = {

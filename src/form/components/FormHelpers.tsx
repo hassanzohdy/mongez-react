@@ -1,11 +1,15 @@
 import React from 'react';
 import { styled } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
+import { Tooltip } from '../../components';
+import { trans } from '../../localization';
 
 const Span: any = ({ required, ...otherProps }) => {
     if (!required) return null;
 
-    return <span {...otherProps}>*</span>
+    return <Tooltip title={trans('required')}>
+        <span {...otherProps}>*</span>
+    </Tooltip>
 };
 
 export const RequiredSpan = styled((Span))(({ theme }) => ({

@@ -37,7 +37,9 @@ export type TabProps = {
 export type TabsProps = {
   children: any;
   lazy?: boolean;
-  value?: boolean;
+  noShadow?: boolean;
+  value?: any;
+  inverted?: boolean;
   classes?: {
     root?: string;
     verticalRoot?: string;
@@ -131,10 +133,15 @@ export function Tab(props: TabProps) {
 }
 
 export default function Tabs(props: TabsProps) {
-  let { value: defaultValue = 0, classes: classesList = {}, barBackground = 'secondary', mode = 'horizontal', textColor, onChange, lazy, children, ...otherTabsProps } = props;
+  let { value: defaultValue = 0, noShadow = false, classes: classesList = {}, barBackground = 'primary', mode = 'horizontal', textColor, onChange, lazy, children, ...otherTabsProps } = props;
+
   const styleSettings: any = {
     appBar: {},
   };
+
+  if (noShadow) {
+    styleSettings.appBar.boxShadow = 'none';
+  }
 
   if (!['primary', 'secondary'].includes(barBackground)) {
     styleSettings.appBar.background = barBackground;
@@ -143,6 +150,11 @@ export default function Tabs(props: TabsProps) {
 
   if (textColor) {
     styleSettings.appBar.color = textColor;
+  }
+
+  if (props.inverted) {
+    styleSettings.appBar.background = '#FFF';
+    styleSettings.appBar.color = '#000';
   }
 
   const classes = useStyles(styleSettings);
@@ -174,10 +186,12 @@ export default function Tabs(props: TabsProps) {
       [classesList.verticalRoot]: mode === 'vertical',
     })}>
       <Wrapper>
-        <MaterialTabs className={clsx({
-          [classes.tabs]: mode === 'vertical',
-          [classesList.verticalTabs]: mode === 'vertical',
-        })} orientation={mode} value={value} onChange={handleChange} {...otherTabsProps}>
+        <MaterialTabs
+          indicatorColor="primary"
+          className={clsx({
+            [classes.tabs]: mode === 'vertical',
+            [classesList.verticalTabs]: mode === 'vertical',
+          })} orientation={mode} value={value} onChange={handleChange} {...otherTabsProps}>
           {children.map((tab, index) => (
             <MaterialTab value={tab.props.index || tab.props.value || index} key={index} label={<MaterialTabLabel {...tab.props} />} />
           ))}

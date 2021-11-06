@@ -1,0 +1,39 @@
+:global(#root) {
+    .wrapper {
+        padding: 0.4rem;
+        width: 90%;
+        margin: 1rem auto;
+    }
+
+    .newBug {
+        font-size: 1rem;
+        color: #ccc;
+        cursor: pointer;
+    }
+
+    .newBugOpened {
+        color: #333;
+        font-weight: bold;
+    }
+
+    .newBugIcon {
+        // margin-left: 0rem;
+    }
+
+    .visibleBox {
+        background-color: #fff;
+        padding: 0.4rem;
+        cursor: pointer;
+        color: #999;
+        font-weight: normal;
+        border: 1px solid #eee;
+        margin-bottom: 0.4rem;
+        border-radius: 4px;
+        width: 100%;
+        &[class~=active] {
+            border-color: skyblue;
+            color: #000;
+            font-weight: bold;
+        }
+    }
+}

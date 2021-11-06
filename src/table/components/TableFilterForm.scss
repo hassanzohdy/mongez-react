@@ -1,12 +1,45 @@
 .filterForm {
     padding: 24px 0;
 
-    .filter-form-btn {
-        margin-top: 0.7rem;
-    }
+    // &.semantic {
+    //     .filter-form-btn {
+    //         margin-top: 1.1rem;
+    //     }
+    // }
+
+    // .filter-form-btn {
+    //     margin-top: 1.7rem;
+    // }
+
+    // &.redit {
+    //     .filter-form-btn {
+    //         margin-top: 0.7rem;
+    //     }
+    // }
+
+    // &.bootstrap {
+    //     .filter-form-btn {
+    //         margin-top: 2.7rem;
+    //     }
+    // }
+
+    // &.material {
+    //     .filter-form-btn {
+    //         margin-top: 0.7rem;
+    //     }
+    // }
+
+    // .filter-form-btn {
+    //     float: right;
+    // }
 
     .filter-autocomplete-root {
-        margin-top: 0.5rem;
+        // margin-top: 0.5rem;
+        margin-top: 1.5px;
+
+        label {
+            font-size: 1rem;
+        }
     }
 }
 

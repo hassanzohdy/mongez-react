@@ -4,6 +4,9 @@ const translation = {
         labelRowsPerPage: 'عرض',
         filter: 'فلتر',
         reset: 'إستعادة',
+        loading: 'جار التحميل',
+        noResults: 'لا يوجد نتائج',
+        displayedColumns: 'الاعمدة المعروضة',
     }
 };
 

@@ -1,0 +1,33 @@
+.ui.multiple.selection.dropdown {
+    .ui.label {
+        background-color: #d9f4ff;
+        box-shadow: 0 0 0 1px #83c4f3d4 inset;
+    }
+}
+
+.ui.fluid.dropdown {
+    padding: .67857143em 1em;
+    // line-height: 19px;
+    line-height: 24px;
+}
+
+.semantic-dropdown-label {
+    margin-bottom: 0.4rem !important;
+    line-height: 18.59px;
+
+    &.inline {
+        // line-height: 21px;
+        // line-height: 1;
+        margin-right: -2px;
+        line-height: 26px;
+        margin-bottom: 0 !important;
+    }
+}
+
+.dropdownInlineRoot {
+    display: flex;
+}
+
+.ui.fluid.dropdown>.dropdown.icon {
+    margin-top: -4px;
+}

@@ -1,0 +1,21 @@
+.formControl {
+    // margin-top: 1rem;
+    margin-bottom: 0.4rem;
+    width: 100%;
+}
+.label {
+    margin-bottom: 0.75rem !important;
+}
+
+.input {
+    height: 41px; // to match the semantic select height
+}
+
+.inlineLabel {
+    display: inline-flex;
+    border: 1px solid #cbc2c2 !important;
+    background-color: #ececec !important;
+    margin-bottom: 0 !important;
+    // background-color: #000 !important;
+    // color: #FFF !important;
+}

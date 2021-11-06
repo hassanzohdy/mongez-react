@@ -14,9 +14,9 @@ const config = {
     set(key: string | ConfigList, value: any = null) {
         // case one one argument only is passed and is object
         if (arguments.length === 1) {
-            this.data = fromJS(this.data).mergeDeep(key).toJS() as ConfigList;
+            this.data = (fromJS(this.data) as any).mergeDeep(key).toJS() as ConfigList;
         } else {
-            this.data[key as string] = value;
+            Obj.set(this.data, key as string, value);
         }
     },
     /**

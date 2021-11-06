@@ -1,6 +1,6 @@
 import config from '../config';
 import { trans } from '../localization';
-import { setTitle, setDescription, setImage, setUrl, setCanonicalUrl, setKeywords } from './../utils/metadata';
+import { setTitle, setDescription, setImage, setUrl, setCanonicalUrl, setKeywords, setFavIcon } from './../utils/metadata';
 
 type HelmetProps = {
     /**
@@ -43,11 +43,15 @@ type HelmetProps = {
      * Page canonical url
      */
     canonicalUrl?: string | null;
+    /**
+     * App Favicon
+     */
+    favIcon?: string | null;
 }
 
 export default function Helmet(props: HelmetProps) {
-    let { title, id = null, image = null, url = true, appNameSeparator = config.get('meta.appNameSeparator', '|'), keywords = null, canonicalUrl = null, appendAppName = true, description = null, bodyClass = null } = props;
-    setTitle(trans(title) + (appendAppName ? ` ${appNameSeparator} ` + trans('appName') : ''));
+    let { title, id = null, image = null, favIcon = null, url = true, appNameSeparator = config.get('meta.appNameSeparator', '|'), keywords = null, canonicalUrl = null, appendAppName = true, description = null, bodyClass = null } = props;
+    setTitle(trans(title) + (appendAppName ? ` ${appNameSeparator} ` + config.get('meta.appName', trans('appName')) : ''));
 
     if (description) {
         setDescription(description);
@@ -67,6 +71,10 @@ export default function Helmet(props: HelmetProps) {
 
     if (!canonicalUrl && url) {
         canonicalUrl = url as string;
+    }
+
+    if (favIcon) {
+        setFavIcon(favIcon);
     }
 
     if (canonicalUrl) {

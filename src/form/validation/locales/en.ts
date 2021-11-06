@@ -1,8 +1,14 @@
 const translation = {
     clearDate: 'Clear Date',
+    form: {
+        input: {
+            selectedFiles: '%d selected files',
+        },
+    },
     validation: {
         required: 'This field is required',
         email: 'Invalid Email Address',
+        url: 'Invalid Url Address',
         min: 'Value can not be lower than %d', 
         max: 'Value can not be higher than %d', 
         match: 'This field is not matched with %s',

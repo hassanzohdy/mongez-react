@@ -1,8 +1,14 @@
 const translation = {
     clearDate: 'حذف التاريخ',
+    form: {
+        input: {
+            selectedFiles: '%d ملفات',
+        },
+    },
     validation: {
         required: 'هذا الحقل مطلوب',
         email: 'بريد إلكتروني',
+        url: 'رابط غير صحيح',
         min: 'القيمة يجب أن لا تقل عن %d',
         max: 'القيمة يجب أن لا تزيد عن %d',
         match: 'هذا الحقل غير متطابق مع %s',

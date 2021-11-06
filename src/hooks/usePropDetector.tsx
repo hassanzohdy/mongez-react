@@ -9,6 +9,7 @@ import React from 'react';
  */
 export default function usePropDetector(stateUpdater, prop = null, propHandler = prop => prop) {
     React.useEffect(() => {
+        if (prop === undefined) return;
         stateUpdater(propHandler(prop));
     }, [prop, stateUpdater]);
 }

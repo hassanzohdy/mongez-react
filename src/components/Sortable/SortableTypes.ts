@@ -3,6 +3,7 @@ export type SortableContainerProps = {
     setList: Function;
     onDragEnd?: Function;
     listStyle?: Function;
+    direction?: 'vertical' | 'horizontal';
     renderItem: (item: any, index: number) => React.ReactNode;
     [id: string]: any;
 };

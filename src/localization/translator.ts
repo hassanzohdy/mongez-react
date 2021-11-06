@@ -46,7 +46,7 @@ export function trans(keyword: string, ...args: any[]) {
 export function translateFrom(localeCode: string, keyword: string, ...args: any[]) {
     let translation = Obj.get(keywordsList, `${localeCode}.${keyword}`);
 
-    return vsprintf(translation, args) || keyword;
+    return translation ? (vsprintf(translation, args) || keyword) : keyword;
 }
 
 const translator = {

@@ -53,7 +53,7 @@ export default function Modal(props) {
 
     const [opened, openModal] = React.useState(open);
 
-    const close = () => {
+    const close = (reason) => {
         openModal(false);
         setTimeout(onClose, 100);
     };
@@ -81,7 +81,7 @@ export default function Modal(props) {
     return (
         <Dialog
             fullWidth
-            disableBackdropClick={!backdrop}
+            // disableBackdropClick={!backdrop}
             disableEscapeKeyDown={!esc}
             maxWidth={size}
             TransitionComponent={Grow}

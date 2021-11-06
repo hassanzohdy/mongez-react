@@ -1,17 +1,18 @@
 import React from 'react';
-import config from './../config';
+import config from '../config';
 import Middleware from './middleware';
 import history from './router-history';
 import concatRoute from './concat-route';
 import { layoutsList } from './routes-list';
 import Redirect from '../components/Redirect';
 import { getCurrentBseAppPath } from './apps-list';
-import NotFound from './../layout/components/NotFound';
+import NotFound from '../layout/components/NotFound';
 import { Route, RouteComponentProps } from 'react-router-dom';
 import { Layout, Route as ModuleRoute, Module } from './types';
 import { appDynamicRouteModule, modulesList } from './apps-list';
-import DefaultProgressBar from './../components/Preloaders/ProgressBar';
+import DefaultProgressBar from '../components/Preloaders/ProgressBar';
 import { firstSegmentOfRoute, isPartOfLazyModules } from './renderer-helpers';
+import Is from '@flk/supportive-is';
 
 const ProgressBar = config.get('router.progressBar', DefaultProgressBar);
 
@@ -159,7 +160,6 @@ export default function Renderer(props: any): any {
 
         // list of routes
         let layoutRoutes = routes.map(route => {
-            
             return (
                 <Route path={route.path}
                     exact
@@ -171,6 +171,25 @@ export default function Renderer(props: any): any {
 
         return (
             <Route key={routesList.join('_')} exact path={routesList} render={(props: RouteComponentProps) => {
+                // let middlewareList = route.middleware;
+
+                const currentRoute = routes.find(route => route.path === props.match.path);
+
+                if (currentRoute && currentRoute.middleware) {
+                    let middlewareList = currentRoute.middleware;
+                    if (!Is.array(middlewareList)) {
+                        middlewareList = [middlewareList];
+                    }
+
+                    for (let middleware of (middlewareList as Function[])) {
+                        let output = middleware(currentRoute, history, props.match.params);
+
+                        if (output) {
+                            return output;
+                        }
+                    }
+                }
+
                 return (
                     <LayoutComponent {...props}>
                         {layoutRoutes}

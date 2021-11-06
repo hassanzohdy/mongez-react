@@ -2,15 +2,11 @@ import React from 'react';
 import './TableFilterForm.scss';
 import { Obj } from 'reinforcements';
 import useTable from '../hooks/use-table';
-import { trans } from '../../localization';
 import { Button, styled } from '@material-ui/core';
-import ReplayIcon from '@material-ui/icons/Replay';
-import ColoredIcon from '../../components/ColoredIcon';
 import router, { currentRoute, navigateTo } from '../../router';
 import { For, GridContainer, GridItem, Tooltip } from './../../components';
 import { SubmitButton, AutoComplete, TextInput, SelectInput, DatePicker } from '../../form';
-
-const CircleButton = styled(Button)({});
+import { tableFilterEvents } from '../utils/events';
 
 const GridContainerWrapper = styled(GridContainer)({
     padding: '0.5rem 2.5rem',
@@ -31,7 +27,7 @@ const availableFilters = {
         }
     },
     select: {
-        component: SelectInput,
+        component: AutoComplete,
         defaultProps: {
             margin: 'dense',
         }
@@ -60,43 +56,56 @@ export default function TableFilterForm() {
 
     const queryString = router.queryString;
 
-    filter.forEach((singleFilter: any) => {
-        if (!singleFilter.component && singleFilter.type) {
-            singleFilter.component = availableFilters[singleFilter.type].component;
-        }
+    const allFilters = React.useMemo(() => {
+        return filter.map((singleFilter: any) => {
+            if (!singleFilter.component && singleFilter.type) {
+                singleFilter.component = availableFilters[singleFilter.type].component;
+            }
 
-        singleFilter.inputProps = Obj.merge({}, availableFilters[singleFilter.type].defaultProps || {}, singleFilter, singleFilter.inputProps);
+            // if (singleFilter.placeholder && !singleFilter.label) {
+            //     singleFilter.label = singleFilter.placeholder;
+            // } else if (singleFilter.label && !singleFilter.placeholder) {
+            //     singleFilter.placeholder = singleFilter.label;
+            // }
 
-        delete singleFilter.inputProps.inputProps;
-        delete singleFilter.inputProps.component;
-        delete singleFilter.inputProps.col;
-        delete singleFilter.inputProps.type;
+            singleFilter.inputProps = Obj.merge({}, availableFilters[singleFilter.type].defaultProps || {}, singleFilter, singleFilter.inputProps);
+
+            delete singleFilter.inputProps.inputProps;
+            delete singleFilter.inputProps.component;
+            delete singleFilter.inputProps.col;
+            delete singleFilter.inputProps.type;
+
+            return singleFilter;
+        });
+    }, [filter]);
+
+    const [displayedFilters, displayFilters] = React.useState(() => {
+        return allFilters.slice(0, 4);
     });
 
-    const resetForm = () => {
-        navigateTo(currentRoute());
-    };
+    React.useEffect(() => {
+        const subscription = tableFilterEvents.onToggle(expanded => {
+            if (expanded) {
+                displayFilters([...allFilters]);
+            } else {
+                displayFilters(allFilters.slice(0, 4));
+            }
+        });
+
+        return () => subscription.unsubscribe();
+    }, []);
 
     return (
         <>
             <GridContainerWrapper>
-                <For array={filter} render={singleFilter => (
-                    <GridItem xs={12} sm={singleFilter.col}>
-                        <singleFilter.component {...singleFilter.inputProps} value={singleFilter.value || queryString.get(singleFilter.query || singleFilter.name)} />
-                    </GridItem>
+                <For array={displayedFilters} render={singleFilter => (
+                    <>
+                        <GridItem xs={12} sm={singleFilter.col}>
+                            <singleFilter.component {...singleFilter.inputProps} defaultValue={singleFilter.value || queryString.get(singleFilter.query || singleFilter.name)} />
+                        </GridItem>
+                    </>
                 )}
                 />
-
-                <GridItem sm={2}>
-                    <SubmitButton color="primary" className="filter-form-btn" variant="contained" >{trans('table.filter')}</SubmitButton>
-                    {options.resetFilterButton !== false &&
-                        <Tooltip title={trans('table.reset')}>
-                            <CircleButton className="filter-form-btn" onClick={resetForm}>
-                                <ColoredIcon icon={ReplayIcon} color="orange" />
-                            </CircleButton>
-                        </Tooltip>
-                    }
-                </GridItem>
             </GridContainerWrapper>
         </>
     );

@@ -4,7 +4,7 @@ import styleSettings from './../../layout/utils/style-settings';
 import {
     ThemeProvider,
     LinearProgress,
-    createMuiTheme
+    createTheme
 } from "@material-ui/core";
 import { Obj } from 'reinforcements';
 
@@ -20,7 +20,7 @@ export default function ProgressBar({ color = null }) {
         Obj.set(settings, 'palette.primary.main', primaryColor);
     }
 
-    const theme = createMuiTheme(settings);
+    const theme = createTheme(settings);
     return (
         <ThemeProvider theme={theme}>
             <LinearProgress />
