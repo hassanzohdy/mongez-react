@@ -4,7 +4,7 @@ import 'react-markdown-editor-lite/lib/index.css';
 import Editor, { Plugins } from 'react-markdown-editor-lite';
 import Label from '../Label';
 import { useClasses } from '../../../hooks';
-import style from './index.module.scss';
+import style from "./index.module.scss";
 import MentionPlugin from './MentionPlugin';
 import Link from './../../../components/Link';
 import { styled } from '@material-ui/core';
