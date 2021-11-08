@@ -1,19 +1,18 @@
 import React from "react";
+import Is from "@flk/supportive-is";
 
 export default function useInputValue<T>(initialValue: T = null) {
     const [value, setValue] = React.useState<T>(initialValue);
 
     const valueChecker: (e: any) => void = (e: any): void => {
         if (! e) {
-            setValue('' as any);
-        } else if (e.value !== undefined) {
+            setValue(null);
+        } else if (!Is.undefined(e.value)) {
             setValue(e.value);
-        } else if (e.target && e.target.value !== undefined) {
+        } else if (e.target && !Is.undefined(e.target.value)) {
             setValue(e.target.value);
-        } else if (e.id !== undefined) {
+        } else if (e.id) {
             setValue(e.id);
-        } else if (e.text !== undefined) {
-            setValue(e.text);
         } else {
             setValue(e);
         }

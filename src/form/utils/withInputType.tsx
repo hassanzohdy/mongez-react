@@ -6,6 +6,7 @@ export default function withInputType(type, defaultProps = {}) {
         return <FormInput  {...props} ref={ref} type={type} />
     }
 
+
     const InputWrapper = React.forwardRef(Input);
 
     InputWrapper.defaultProps = defaultProps;

@@ -18,8 +18,6 @@ import TableContext, { ITableContext } from '../Context/TableContext';
 import arabicText from './../locales/ar';
 import englishText from './../locales/en';
 import localization from './../../localization';
-import cache from './../../cache';
-import { md5 } from '../../encryption';
 
 localization.extend('ar', arabicText);
 localization.extend('en', englishText);
@@ -94,16 +92,14 @@ export default function Table(props: any) {
     const submitFilter = (e, form) => {
         // reset page number
         const pageTableElement = document.getElementById('table-page-number') as HTMLInputElement;
-        if (pageTableElement) {
-            if (resetPageNumber !== false) {
-                pageTableElement.value = '1';
-            } else {
-                if (String(currentTableInfo.pageNumber) !== String(pageTableElement.value)) {
-                    pageTableElement.value = currentTableInfo.pageNumber;
-                    updateTableInfo({
-                        pageNumber: Number(currentTableInfo.pageNumber),
-                    });
-                }
+        if (resetPageNumber !== false) {
+            pageTableElement.value = '1';
+        } else {
+            if (String(currentTableInfo.pageNumber) !== String(pageTableElement.value)) {
+                pageTableElement.value = currentTableInfo.pageNumber;
+                updateTableInfo({
+                    pageNumber: Number(currentTableInfo.pageNumber),
+                });
             }
         }
 
@@ -142,22 +138,6 @@ export default function Table(props: any) {
         });
     }
 
-    const tableHash = React.useMemo(() => 'tblopts' + md5(JSON.stringify(options)), []);
-
-    const [displayedColumns, setColumnsToBeDisplayed] = React.useState(() => {
-        if (!cache.has(tableHash)) {
-            const displayedColumnsList = Obj.get(options, 'table.columns', []).filter(column => !column.displayMode || ['always', 'default'].includes(column.displayMode)).map(column => column.key);
-            cache.set(tableHash, displayedColumnsList);
-        }
-
-        return cache.get(tableHash) as any[];
-    });
-
-    const setDisplayedColumns = newColumns => {
-        setColumnsToBeDisplayed(newColumns);
-        cache.set(tableHash, newColumns);
-    };
-
     const tableOptions: ITableContext = {
         options,
         pagination,
@@ -165,8 +145,6 @@ export default function Table(props: any) {
         sortingColumn,
         setSortBy,
         setPaginationInfo,
-        displayedColumns,
-        setDisplayedColumns,
         setItemsPerPage,
         itemsPerPage: currentTableInfo.itemsPerPage,
         loading,

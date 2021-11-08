@@ -61,7 +61,7 @@ export type ImageInputProps = {
 };
 
 export default function ImageInput({ clearable = null, required = false, clearButton = null, clearButtonPosition = 'bottom', height = null, width = null, name = '', imageStyle = {}, ...props }) {
-    const [selectedImage, selectImage] = React.useState(props.value || props.defaultValue || imagePlaceholder);
+    const [selectedImage, selectImage] = React.useState(props.value || imagePlaceholder);
     const [displayingImage, displayImage] = React.useState(selectedImage);
 
     if (height) {

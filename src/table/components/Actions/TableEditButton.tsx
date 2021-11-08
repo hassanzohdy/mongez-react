@@ -29,11 +29,11 @@ export default function TableEditButton(props) {
 
     return (
         <>
-            <Tooltip title={trans('edit')}>
-                <IconButton onClick={e => openForm(true)}>
+            <IconButton onClick={e => openForm(true)}>
+                <Tooltip title={trans('edit')}>
                     <EditIcon />
-                </IconButton>
-            </Tooltip>
+                </Tooltip>
+            </IconButton>
 
             <TableForm
                 onSubmit={onSubmit}

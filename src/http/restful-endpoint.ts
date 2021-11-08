@@ -1,7 +1,6 @@
 import endpoint from './endpoint';
 import Is from '@flk/supportive-is';
 import { concatRoute } from './../router';
-import { AxiosInstance } from 'axios';
 
 export interface RestfulService {
     route: string,
@@ -20,20 +19,9 @@ export default class RestfulEndpoint implements RestfulService {
      * 
      * @var  {string}
      */
-    public route: string = '';
+    route = '';
 
-    /**
-     * End point object
-     */
-    protected endpoint: AxiosInstance = endpoint;
-
-    /**
-     * Default list method params
-     * 
-     */
-    public static defaultListParams = {
-        paginate: true,
-    };
+    endpoint = endpoint;
 
     /**
      * Fetch records from endpoint api
@@ -41,7 +29,7 @@ export default class RestfulEndpoint implements RestfulService {
      * @param   {object} params 
      * @returns {Promise}
      */
-    list(params: object = RestfulEndpoint.defaultListParams, config = {}) {
+    list(params: object = {}, config = {}) {
         config['params'] = params;
 
         return endpoint.get(this.route, config);
@@ -52,7 +40,6 @@ export default class RestfulEndpoint implements RestfulService {
      * 
      * @param   {number} id 
      * @param   {object} params 
-     * @param   {object} config
      * @returns {Promise}
      */
     get(id: number | string, params: object = {}, config = {}) {

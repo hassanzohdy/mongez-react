@@ -1,19 +1,18 @@
-import cslx from 'clsx';
 import React from 'react';
 import '../validation/locales/en';
 import '../validation/locales/ar';
 import serialize from 'form-serialize';
+import { FormInput } from '../utils/types';
 import FormContext from '../Context/FormContext';
-import { getFormInputTheme } from '../utils/flags';
-import localization from './../../localization/translator';
+import MongezComponent from './../../components/MongezComponent';
 import arabicTranslation from './../validation/locales/ar';
 import englishTranslation from './../validation/locales/en';
-import MongezComponent from './../../components/MongezComponent';
-import events, { EventSubscription, EventTriggerResponse } from '../../events';
-import { Random } from 'reinforcements';
+
+import localization from './../../localization/translator';
 
 localization.extend('ar', arabicTranslation);
 localization.extend('en', englishTranslation);
+
 
 export default class Form extends MongezComponent {
     state = {};
@@ -23,51 +22,15 @@ export default class Form extends MongezComponent {
     isSubmitting: any = false;
     validationCallbacks = [];
     formInputs = {};
-    // formId = ;
-    public formEventName = `form.${Random.id()}`;
 
-    public eventName(eventName) {
-        return this.formEventName + '.' + eventName;
+    addFormInput(formInput: FormInput) {
+        this.formInputs[formInput.key] = formInput;
     }
 
-    public onValidation(callback) {
+    removeFormInput(formInput: FormInput) {
+        delete this.formInputs[formInput.key];
 
-    }
-
-    addFormInput(formInput) {
-        this.formInputs[formInput.id] = formInput;
-    }
-
-    removeFormInput(inputId) {
-        delete this.formInputs[inputId];
-    }
-
-    public validateInput(inputId: string, isValid: boolean) {
-        if (!this.formInputs[inputId]) return;
-
-        this.formInputs[inputId]['isValid'] = isValid;
-
-        let isValidForm = true;
-
-        for (let id in this.formInputs) {
-            let input = this.formInputs[id];
-            if (input.isValid === false) {
-                isValidForm = false;
-                break;
-            }
-        }
-
-        this.validForm(isValidForm);
-    }
-
-    /**
-     * Add callback on form validation
-     * 
-     * @param {Function} callback
-     * @returns {EventSubscription}
-     */
-    public onValidate(callback: Function): EventSubscription {
-        return events.subscribe(this.eventName('validation'), callback);
+        this.validate();
     }
 
     /**
@@ -79,12 +42,19 @@ export default class Form extends MongezComponent {
 
         this.validForm(true); // make sure its reset
 
-        let output = events.triggerAll(this.eventName('validation'), this) as EventTriggerResponse;
+        for (let key in this.formInputs) {
+            let input = this.formInputs[key];
 
-        if (output.results.includes(false)) {
-            this.validForm(false);
-            return;
+            if (! input.validate) continue;
+
+            if (input.validate() === false) {
+                this.validForm(false);
+            }
         }
+
+        // check if the form is valid
+        // if not, then do not submit
+        if (this.isValidForm === false) return;
 
         if (this.props.onSubmit) {
             this.submitting(true);
@@ -132,6 +102,32 @@ export default class Form extends MongezComponent {
         this.set('isSubmitting', submitting);
     }
 
+    updateInput(input) {
+        this.formInputs[input.key] = input;
+
+        this.validate();
+    }
+
+    /**
+     * Validate Form Inputs
+     * 
+     * @param any input
+     */
+    validate() {
+        let isValidForm = true;
+
+        for (let key in this.formInputs) {
+            let input = this.formInputs[key];
+
+            if (input.state === 'invalid') {
+                isValidForm = false;
+                break;
+            }
+        }
+
+        this.validForm(isValidForm);
+    }
+
     /**
      * Trigger form submission programmatically
      * 
@@ -153,12 +149,10 @@ export default class Form extends MongezComponent {
             props.noValidate = true;
         }
 
-        const classes = cslx(props.className, getFormInputTheme());
-
         // noValidate disables the browser default validation
         return (
             <FormContext.Provider value={{ form: this }}>
-                <form ref={form => this.formElement = form} className={classes} noValidate={props.noValidate} onSubmit={this.triggerSubmit.bind(this)}>
+                <form ref={form => this.formElement = form} className={props.className} noValidate={props.noValidate} onSubmit={this.triggerSubmit.bind(this)}>
                     {this.children()}
                 </form>
             </FormContext.Provider>

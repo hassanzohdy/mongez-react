@@ -43,16 +43,6 @@ export default class BaseCacheEngine implements CacheDriverInterface {
     }
 
     /**
-     * Determine whether the cache engine has the given key
-     * 
-     * @param {string} key
-     * @returns {boolean} 
-     */
-     public has(key: string): boolean {
-        return this.storage.getItem(this.getKey(key)) !== null;
-    }
-
-    /**
      * Remove key from storage
      * 
      * @param  {string} key  

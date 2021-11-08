@@ -76,9 +76,9 @@ function TableColumn({ column }) {
 }
 
 export default function TableHead() {
-    const { options, displayedColumns } = useTable();
+    const { options } = useTable();
 
-    const columns = options.table.columns.filter(column => displayedColumns.includes(column.key)).map((column, index) => {
+    const columns = options.table.columns.map((column, index) => {
         return <TableColumn key={index} column={column} />;
     });
 

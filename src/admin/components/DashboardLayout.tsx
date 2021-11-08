@@ -11,28 +11,17 @@ let sidebarOpenLastStatus;
 
 export default function DashboardLayout(props) {
     const classes: any = useLayoutClasses();
-    const [sidebarIsOpened, setOpen] = React.useState<boolean>(sidebarOpenLastStatus !== undefined ? sidebarOpenLastStatus : false);
+    const [sidebarIsOpened, setOpen] = React.useState(sidebarOpenLastStatus !== undefined ? sidebarOpenLastStatus : false);
 
     const openSidebar = () => {
         setOpen(true);
         sidebarOpenLastStatus = true;
     };
-    
+
     const closeSidebar = () => {
         setOpen(false);
         sidebarOpenLastStatus = false;
     };
-
-    // React.useEffect(() => {
-    //     document.addEventListener('keyup', e => {
-    //         if (pressed(e, TAB_KEY) === false) return;
-
-    //         const newState = ! sidebarIsOpened;
-
-    //         setOpen(newState);
-    //         sidebarOpenLastStatus = newState;
-    //     })
-    // }, []);
 
     return (
         <Layout>

@@ -159,23 +159,9 @@ export function setImage(imagePath) {
  * @param string url 
  * @returns void
  */
- export function setUrl(url) {
+export function setUrl(url) {
     meta('og:url', url);
     meta('twitter:url', url);
-}
-
-/**
- * Set meta url 
- * 
- * @param string url 
- * @returns void
- */
- export function setFavIcon(favIcon) {
-     let favIconElement = document.getElementById('favicon') as HTMLLinkElement;
-
-     if (! favIconElement) return;
-
-     favIconElement.href = favIcon;
 }
 
 /**

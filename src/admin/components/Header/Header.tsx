@@ -20,8 +20,6 @@ import useLayoutClasses from './../../hooks/useLayoutClasses';
 import SelectInput from './../../../form/components/SelectInput';
 import styleSettings from './../../../layout/utils/style-settings';
 import { getLocaleCodes, getCurrentLocaleCode } from './../../../localization';
-import Is from '@flk/supportive-is';
-import { AdminHeaderWebsiteIconOptions } from '../../utils/types';
 
 const useStyles = makeStyles({
   selectInputRoot: {
@@ -53,19 +51,19 @@ export default function Header(props) {
 
   const userLogout = config.get('dashboard.header.logout', () => { });
 
-  const websiteUrl: AdminHeaderWebsiteIconOptions = config.get('dashboard.header.websiteUrl', {
-    to: "/",
-    baseApp: "/"
-  }) as AdminHeaderWebsiteIconOptions;
+  const websiteUrl = config.get('dashboard.header.websiteUrl');
 
-  const baseAppUrlOptions = Is.string(websiteUrl) ? {
+  const baseAppUrlOptions = websiteUrl ? {
     to: websiteUrl,
     relative: false
-  } : websiteUrl;
+  } : {
+    to: "/",
+    baseApp: "/"
+  }
 
   const localeCodesList = getLocaleCodes().map(localeCode => {
     return {
-      text: trans(localeCode),
+      label: trans(localeCode),
       value: localeCode,
     };
   });

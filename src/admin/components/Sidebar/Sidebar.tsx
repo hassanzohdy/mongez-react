@@ -38,7 +38,6 @@ export default function Sidebar(props) {
         }
     }
 
-
     const filterItems = items => {
         return items.filter(item => {
             if (item.role) {

@@ -1,6 +1,7 @@
 import config from "./../config";
 import CacheDriverInterface from "./CacheDriverInterface";
-import EncryptedLocalStorageDriver from "./drivers/EncryptedLocalStorageDriver";
+// import EncryptedLocalStorageDriver from "./drivers/EncryptedLocalStorageDriver";
+import PlainLocalStorageDriver from "./drivers/PlainLocalStorage";
 
 export class CacheManager implements CacheDriverInterface {
     /**
@@ -8,7 +9,7 @@ export class CacheManager implements CacheDriverInterface {
      * 
      * @var {CacheDriverInterface}
      */
-    private driver: CacheDriverInterface = config.get('cache.driver') || new EncryptedLocalStorageDriver();
+    private driver: CacheDriverInterface = config.get('cache.driver') || new PlainLocalStorageDriver();
 
     /**
      * Set driver engine
@@ -42,18 +43,8 @@ export class CacheManager implements CacheDriverInterface {
      * @param {string} key 
      * @param {any} defaultValue  
      */
-    public get(key: string, defaultValue: any = null): any {
+    public get(key: string, defaultValue: any): any {
         return this.driver.get(key, defaultValue);
-    }
-
-    /**
-     * Determine whether the cache engine has the given key
-     * 
-     * @param {string} key
-     * @returns {boolean} 
-     */
-    public has(key: string): boolean {
-        return this.driver.has(key);
     }
 
     /**

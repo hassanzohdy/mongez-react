@@ -26,11 +26,11 @@ export default function TableDeleteButton({ record, rowIndex }) {
 
     return (
         <>
-            <Tooltip title={trans('remove')}>
-                <IconButton onClick={e => setConfirm(true)}>
+            <IconButton onClick={e => setConfirm(true)}>
+                <Tooltip title={trans('remove')}>
                     <DeleteIcon />
-                </IconButton>
-            </Tooltip>
+                </Tooltip>
+            </IconButton>
 
             <Confirm open={confirming}
                 onClose={e => setConfirm(false)}

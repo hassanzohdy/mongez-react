@@ -1,5 +1,5 @@
 import { trans } from '../../../localization';
-import { InputRule, RuleResponse } from './../../utils/types';;
+import { InputRule, RuleResponse } from './input-rule';
 
 export default {
     rule: 'max',

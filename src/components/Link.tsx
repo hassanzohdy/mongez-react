@@ -11,44 +11,8 @@ const ColoredLink = styled(MaterialLink)({
     color: styleSettings.get('colors.link'),
 });
 
-export type LinkProps = {
-    /**
-     * Link Path
-     */
-    to?: string;
-    /**
-     * Alias to `to` prop
-     */
-    href?: string;
-    /**
-     * The locale code for the link
-     * Please note that this props must be used only with relative paths only
-     */
-     localeCode?: string;
-     /**
-      * Base app path
-      * 
-      * @default current app bath
-      */
-      baseApp?: string;
-     /**
-      * Style
-      */
-     style?: React.CSSProperties;
-     /**
-      * Determine whether the current link is relative to our application
-      * 
-      * @default true
-      */
-      relative?: boolean;
-      /**
-       * Other props
-       */
-      [id: string]: any;
-}
-
 const Link = React.forwardRef(function (props: any, forwardedRef) {
-    let { to, href, newTab = false, localeCode, color, style = {}, relative, baseApp = getCurrentBseAppPath(), ...otherLinkProps } = props;
+    let { to, href, localeCode, color, style = {}, relative, baseApp = getCurrentBseAppPath(), ...otherLinkProps } = props;
 
     if (!to && href) {
         to = href;
@@ -71,10 +35,6 @@ const Link = React.forwardRef(function (props: any, forwardedRef) {
     }
 
     otherLinkProps.style = style;
-
-    if (newTab) {
-        otherLinkProps.target = '_blank';
-    }
 
     // Using target="_blank" without rel="noopener noreferrer" is a security risk: 
     // @see https://mathiasbynens.github.io/rel-noopener  react/jsx-no-target-blank

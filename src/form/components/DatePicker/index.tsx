@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import FormInput from '../FormInput';
-import DateFnsUtils from '@date-io/date-fns';
+import DateFnsUtils from '@date-io/date-fns'; 
 import {
     DatePicker as MaterialDatePicker,
     MuiPickersUtilsProvider,
@@ -14,9 +14,6 @@ import { If, Tooltip } from '../../../components';
 import useFormInput from '../../hooks/useFormInput';
 import { Box, FormHelperText, IconButton } from '@material-ui/core';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
-import useFormInput2 from '../../hooks/useFormInput2';
-import { FormInput2Props } from '../../utils/types/FormInput';
-import InputError from '../InputError';
 
 type DatePickerProps = {
     clearable?: boolean;
@@ -38,68 +35,78 @@ type DatePickerProps = {
 }
 
 export default function DatePicker(props: DatePickerProps) {
-    const { id, value, name, label, defaultValue, onChange, labelPosition, icon, iconPosition, placeholder, readOnly, required, classes, error, hasError, otherProps } = useFormInput2(props as any);
+    let { onError = null, format = 'dd-mm-yyyy', required = false, label = null, minYear = null, clearable, yearsOnly = false, value, onChange, ...otherProps } = props;
+    let givenValue = value;
 
-    let { onError = null, format = 'dd-mm-yyyy', minYear = null, clearable, yearsOnly = false, ...moreProps } = otherProps;
-    let givenValue = value || defaultValue;
+    const [error, setError] = React.useState(null);
 
     if (yearsOnly) {
-        moreProps.views = ["year"];
+        otherProps.views = ["year"];
         format = 'yyyy';
 
         if (minYear) {
-            moreProps.minDate = new Date();
-            moreProps.minDate.setFullYear(minYear as number);
+            otherProps.minDate = new Date();
+            otherProps.minDate.setFullYear(minYear as number);
         }
 
         if (givenValue) {
             givenValue = new Date();
             givenValue.setFullYear(givenValue as any);
         }
+
     } else if (givenValue) {
         givenValue = moment(givenValue, format.toUpperCase()).toDate();
     }
 
-    const [selectedDate, handleDateChange] = React.useState(givenValue || '');
+    const [selectedDate, handleDateChange] = React.useState(givenValue || null);
 
-    const onDateSelection = (date: MaterialUiPickersDate | null) => {
+    const formInput = useFormInput({
+        name: otherProps.name,
+        value: selectedDate,
+        setError,
+        onError,
+        type: 'datePicker',
+        required: required,
+    }, [selectedDate]);
+
+    const onDateSelection = (date: MaterialUiPickersDate) => {
         handleDateChange(date);
 
-        onChange && onChange(date as any, (date) => date);
+        onChange && onChange(date);
+
+        formInput.requiredValue(date);
     };
 
     const onClear = () => {
-        onDateSelection(null);
+        handleDateChange(null);
+        onChange && onChange(null);
+
+        if (required) {
+            formInput.requiredValue(false);
+        }
     };
 
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Box display="flex" flexDirection="row">
-                {hasError && <InputError classes={classes} error={error} />}
-
                 <Box flexGrow={1}>
                     <MaterialDatePicker
-                        TextFieldComponent={(props) => {
-                            return <FormInput {...props as any} placeholder={placeholder} required={required}  /> as any;
-                        }}
-                        // orientation="landscape"
+                        TextFieldComponent={(FormInput as any)}
                         value={selectedDate}
                         animateYearScrolling
                         autoOk
-                        id={id}
-                        name={name}
-                        {...moreProps}
-                        label={<Label htmlFor={id} required={required}>{label}</Label>}
+                        {...otherProps}
+                        label={<Label required={required}>{trans(label)}</Label>}
                         format={format.replace(/m/g, 'M')}
                         onChange={onDateSelection} />
                 </Box>
                 <Box>
-                    <If condition={required === false && clearable === true && Boolean(selectedDate)}>
+                    <If condition={clearable === true && Boolean(selectedDate)}>
                         <Tooltip title={trans('clearDate')}>
                             <IconButton
                                 edge="end"
                                 size="small"
-                                style={{ marginTop: '0.5rem' }}
+                                style={{ marginTop: '2rem' }}
                                 disabled={!selectedDate}
                                 onClick={onClear}
                             >

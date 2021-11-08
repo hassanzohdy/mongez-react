@@ -9,7 +9,6 @@ interface TimeAgoProps {
     date?: string | Date;
     [key: string]: any;
     tooltip?: boolean;
-    className?: string;
 }
 
 export default function TimeAgo(props: TimeAgoProps) {
@@ -24,7 +23,7 @@ export default function TimeAgo(props: TimeAgoProps) {
     if (props.tooltip) {
         return (
             <Tooltip title={date.toLocaleString()}>
-                <span className={props.className}>{time}</span>
+                <span>{time}</span>
             </Tooltip>
         )
     }

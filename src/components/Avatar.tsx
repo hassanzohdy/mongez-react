@@ -6,10 +6,18 @@ const MarginedAvatar = styled(MaterialAvatar)({
     margin: '0 auto',
 });
 
-export default function Avatar({ ...props }) {
+export default function Avatar({ title = null, ...props }) {
+    props.title = title || props.alt;
+
     return <MaterialAvatar {...props} />;
 }
 
 export const AlignedAvatar = React.forwardRef((props: any, ref) => {
-    return <MarginedAvatar ref={ref} {...props} />;
+    let title;
+
+    if (props) {
+        title = props.title || props.alt;
+    }
+
+    return <MarginedAvatar ref={ref} title={title} {...props} />;
 });

@@ -48,6 +48,8 @@ export default function DragAndDropInput({ onChange, classes = {} }: DragAndDrop
     };
 
     const onDrop = React.useCallback(acceptedFiles => {
+        console.log(9);
+
         // Do something with the files
         onChange(acceptedFiles);
     }, []);

@@ -1,16 +1,16 @@
 import React from "react";
 import Is from "@flk/supportive-is";
 import { Random } from "reinforcements";
-import { FormInputProps } from "../utils/types";
+import { FormInput } from "../utils/types";
 import { trans } from "../../localization";
 import FormContext from "../Context/FormContext";
 
-export default function useFormInput(inputOptions: FormInputProps, memoChange = []): FormInputProps {
+export default function useFormInput(inputOptions: FormInput, memoChange = []): FormInput {
     const [inputKey] = React.useState(Random.id());
 
     const { form } = React.useContext(FormContext);
 
-    function prepareFormInput(formInput): FormInputProps {
+    function prepareFormInput(formInput): FormInput {
         if (!formInput.key) {
             formInput.key = inputKey;
         }
@@ -26,8 +26,8 @@ export default function useFormInput(inputOptions: FormInputProps, memoChange = 
 
         if (formInput.required && !formInput.validate) {
             formInput.validate = () => {
-                if (! formInput.value || Is.empty(formInput.value)) {
-                // if (! formInput.value) {
+                // if (Is.empty(formInput.value)) {
+                if (! formInput.value) {
                     return formInput.markAsInvalid('required', trans('validation.required'));
                 }
 

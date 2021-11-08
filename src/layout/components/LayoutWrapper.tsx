@@ -22,11 +22,9 @@
 import { styled } from "@material-ui/core";
 
 export const LayoutWrapper = styled('div')({
-    display: 'inline-flex',
+    display: 'flex',
     minHeight: '100vh',
-    width: '100%',
     flexDirection: 'column',
-    transition: 'all 0.5s ease-in-out',
 });
 
 export const Main = styled('main')({

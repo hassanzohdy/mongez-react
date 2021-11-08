@@ -8,8 +8,6 @@ import { SWITCHING_LOCALE_CODE_EVENT } from "./../events";
 import { queryString as objectToQueryString } from 'object-query-string';
 import { getLocaleCodes, updateCurrentLocaleCode, getCurrentLocaleCode } from "./..//localization";
 
-export { objectToQueryString };
-
 let currentFullRoute: string, fullRouteWithoutLocaleCode: string;
 
 let previousRoute: string = '/';
@@ -74,13 +72,11 @@ export function updateQueryString(queryString: string | any, navigate: boolean =
 
     queryString = ltrim(queryString, '?');
 
-    const withQueryString = queryString ? '?' + queryString : '';
-
-    window.history.replaceState(null, '', fullUrl + withQueryString);
+    window.history.replaceState(null, '', fullUrl + '?' + queryString);
 
     if (navigate) {
         const [route] = currentRoute().split('?');
-        navigateTo(route + withQueryString);
+        navigateTo(route + '?' + queryString);
     }
 }
 
@@ -88,15 +84,13 @@ export function updateQueryString(queryString: string | any, navigate: boolean =
  * navigate to the given path
  * 
  * @param  {string} path 
- * @param  {string|null} localeCode
- * @param  {string} app
  * @returns {void}
  */
-export function navigateTo(path: string, localeCode: string | null = null, app: string = getCurrentBseAppPath()) {
+export function navigateTo(path: string, localeCode: string | null = null) {
     // login >> valid
     // /login >> valid
 
-    path = concatRoute(app, path);
+    path = concatRoute(getCurrentBseAppPath(), path);
 
     // /users
     // if current initial locale code

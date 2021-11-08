@@ -7,7 +7,6 @@ import navigateableButton from '../components/Actions/navigateableButton';
 
 const tableActions: TableColumn = {
     heading: 'actions',
-    key: 'tableActions',
     formatter: ButtonsFormatter,
     buttons: [TableViewButton, TableEditButton, TableDeleteButton]
 };

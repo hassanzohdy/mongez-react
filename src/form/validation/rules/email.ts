@@ -1,6 +1,6 @@
 import Is from "@flk/supportive-is";
 import { trans } from './../../../localization';
-import { InputRule, RuleResponse } from './../../utils/types';;
+import { InputRule, RuleResponse } from './input-rule';
 
 export default {
     type: 'email',

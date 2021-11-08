@@ -1,5 +1,6 @@
 import config from "./../../config";
-import { SidebarDisplayMode } from "./types";
+
+export type SidebarDisplayMode = 'permanent' | 'temporary' | 'persistent';
 
 export function sidebarDisplayMode(): SidebarDisplayMode {
     return config.get('dashboard.sidebar.display', 'persistent');

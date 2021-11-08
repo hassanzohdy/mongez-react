@@ -1,14 +1,9 @@
 import React from 'react';
 import Label from './Label';
 import HiddenInput from './HiddenInput';
-import { InputRule } from './../utils/types';
 import { ColorPicker } from 'material-ui-color';
-import { useFormInputRegistrar } from '../hooks';
+import useFormInput from '../hooks/useFormInput';
 import { FormHelperText } from '@material-ui/core';
-import { useBasicRules, useError, useId, useLabel, useName, useValue } from '../hooks/useFormInputProps';
-import FormError from './FormError';
-import InputError from './InputError';
-import { FormContext, validateComponent } from '..';
 
 function isColor(strColor) {
     let s = new Option().style;
@@ -30,21 +25,9 @@ export type ColorInputProps = {
      */
     label?: React.ReactNode;
     /**
-     * Input id
-     */
-    id?: string;
-    /**
      * Color Value
      */
     value?: any;
-    /**
-     * Validation rules
-     */
-    rules?: InputRule[];
-    /**
-     * Color Default Value
-     */
-    defaultValue?: any;
     /**
      * A callback function triggered on validation error
      */
@@ -55,23 +38,18 @@ export type ColorInputProps = {
     onChange?: (value: string) => void;
 };
 
-export default function ColorInput(props: ColorInputProps) {
-    // Contexts List
-    const { form } = React.useContext(FormContext);
-    const id = useId(props);
-    const name = useName(props);
-    const label = useLabel(props);
-    const [color, setColor] = useValue(props);
-    const [error, setError] = useError(props);
-    const rules = useBasicRules(props);
-    useFormInputRegistrar({
-        id,
+export default function ColorInput({ onError = null, name = null, required = false, label, value, onChange = null }: ColorInputProps) {
+    const [color, setColor] = React.useState(value || '');
+    const [error, setError] = React.useState(null);
+    const hasError = Boolean(error);
+
+    const formInput = useFormInput({
         name,
-        value: color,
-        props,
-        rules,
+        value: value,
         setError,
-    });
+        onError,
+        required,
+    }, [value]);
 
     const updateColor = color => {
         if (color.css) {
@@ -84,28 +62,20 @@ export default function ColorInput(props: ColorInputProps) {
 
         setColor(color);
 
-        props.onChange && props.onChange(color);
-
-        validateComponent({
-            form: form,
-            id,
-            rules,
-            value: color,
-            props,
-            setError,
-        });
+        onChange && onChange(color);
+        formInput.requiredValue(color);
     }
 
     return (
         <>
             <HiddenInput name={name} value={color} />
-            <Label label={label} required={props.required} />
-            <InputError error={error} />
+            <Label label={label} required={required} />
             <ColorPicker
                 value={color}
                 onChange={updateColor}
             />
 
+            <FormHelperText error={hasError}>{error}</FormHelperText>
         </>
     )
 }

@@ -3,36 +3,6 @@ import AES from 'crypto-js/aes';
 import CryptoJS from 'crypto-js';
 
 /**
- * Return sha1 hashed string 
- * 
- * @param {string} text 
- * @returns {string}
- */
-export function md5(text: string): string {
-    return CryptoJS.MD5(text).toString();
-}
-
-/**
- * Return sha1 hashed string 
- * 
- * @param {string} text 
- * @returns {string}
- */
-export function sha1(text: string): string {
-    return CryptoJS.SHA1(text).toString();
-}
-
-/**
- * Return sha256 hashed string 
- * 
- * @param {string} text 
- * @returns {string}
- */
-export function sha256(text: string): string {
-    return CryptoJS.SHA256(text).toString();
-}
-
-/**
  * Get the encrypted text of the given value 
  * 
  * @param {any} value 

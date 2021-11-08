@@ -57,10 +57,6 @@ export function queryString(): QueryString {
 
     return {
         get(key: string, defaultValue: any = null): any {
-            if (key.endsWith('[]')) {
-                key = rtrim(key, '[]');
-            }
-
             return Obj.get(queryString, key, defaultValue);
         },
         all(): object {

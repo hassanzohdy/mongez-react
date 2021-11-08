@@ -1,5 +1,3 @@
-import { md5 } from "../../encryption";
-
 const fontFamilyLinkId = 'ffam'; // f(ont) fam(ily)
 
 function createLinkTag() {
@@ -10,16 +8,14 @@ function createLinkTag() {
     return linkTag;
 }
 
-export function setExternalFontFamily(url: string, fontElementId: string = ''): HTMLElement | null {
-    if (!url) return null;
+export function setExternalFontFamily(url) {
+    if (!url) return;
 
-    fontElementId = fontFamilyLinkId + '-' + (fontElementId || md5(url));
-
-    let linkTag: any = document.getElementById(fontElementId) || createLinkTag();
+    let linkTag: any = document.getElementById(fontFamilyLinkId) || createLinkTag();
 
     linkTag.href = url;
 
-    linkTag.id = fontElementId;
+    linkTag.id = fontFamilyLinkId;
 
     document.head.appendChild(linkTag);
 

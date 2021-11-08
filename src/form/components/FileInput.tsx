@@ -1,48 +1,37 @@
 import React from 'react';
 import Label from './Label';
 import Is from '@flk/supportive-is';
-import HiddenInput from './HiddenInput';
-import { InputRule } from '../utils/types';
-import { For, If } from '../../components';
 import { PrimaryButton } from './StaticButton';
 import { HiddenInputFile } from './FormHelpers';
-import { useFormInputRegistrar } from '../hooks';
-import FormContext from '../Context/FormContext';
-import { validateComponent } from '../utils/validator';
+import useFormInput from '../hooks/useFormInput';
+import { toInputName, Random } from 'reinforcements';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { FormControl, FormHelperText } from '@material-ui/core';
-import { useError, useFileRules, useId, useLabel, useName } from '../hooks/useFormInputProps';
+
 import {
     FileInputWrapper,
     FileButtonWrapper,
     FileButtonText
 } from './FileInputHelperComponents';
-import { trans } from '../../localization';
+import { For, If } from '../../components';
+import HiddenInput from './HiddenInput';
 
 export type FileInputProps = {
     label?: React.ReactNode;
     required?: boolean;
     accept?: string[];
-    acceptImage?: boolean;
     stringableValue?: boolean;
-    /**
-     * Input name
-     */
     name?: string;
-    multiple?: boolean;
-    rules?: InputRule[];
     onChange?: Function;
-    content?: React.ReactNode;
     value?: string | false; // this is important for required validation
     buttonText?: React.ReactNode;
     buttonIcon?: React.ReactNode;
-    buttonComponent?: React.ComponentType<any>;
     id?: string;
     [key: string]: any;
     /**
      * A callback function triggered on validation error
      */
-    onError?: (errorType: string, errorMessage: string) => void;
+     onError?: (errorType: string, errorMessage: string) => void;
 };
 
 interface HTMLInputEvent extends Event {
@@ -50,46 +39,33 @@ interface HTMLInputEvent extends Event {
 }
 
 export default function FileInput(props: FileInputProps) {
-    const {
-        required, accept, multiple = false, acceptImage, onChange,
-        content,
-        stringableValue = true, buttonText, buttonIcon
-    } = props;
+    const {onError = null, label, value, required, accept, onChange, stringableValue = true, buttonText, buttonIcon, id = Random.id(), name, ...otherProps } = props;
 
-    // Contexts List
-    const { form } = React.useContext(FormContext);
-
-    // States list
-    const id = useId(props);
-    const name = useName(props);
-    const label = useLabel(props);
-    const rules = useFileRules(props);
-    const [error, setError, hasError] = useError(props);
     const [currentButtonText, setButtonText] = React.useState(buttonText);
-    const [originalValue] = React.useState(props.value || props.defaultValue);
+    const [error, setError] = React.useState(null);
+    const [originalValue] = React.useState(value);
     const [files, setFiles] = React.useState<FileList | string | false>(null);
 
     const fileInputRef: any = React.useRef();
+    const hasError = Boolean(error);
 
-    const [dynamicContent, setDynamicContent] = React.useState<React.ReactNode>(content);
-
-    const acceptedTypes = React.useState(() => {
-        if (accept) return (accept || []).map(extension => '.' + extension).join(',');
-
-        if (acceptImage === true) return 'image/*';
-
-        return null;
-    });
+    const formInput = useFormInput({
+        name,
+        value: value || files,
+        setError,
+        onError,
+        required,
+    }, [files]);
 
     React.useEffect(() => {
-        if (props.value === false) {
+        if (value === false) {
             fileInputRef.current.type = 'text';
             // fileInputRef.current.type = 'file';
             fileInputRef.current.value = '';
         }
 
-        setFiles(props.value);
-    }, [props.value]);
+        setFiles(value);
+    }, [value]);
 
     const openFileSelectionDialog = () => {
         fileInputRef.current.click();
@@ -106,34 +82,12 @@ export default function FileInput(props: FileInputProps) {
 
         onChange(e);
 
-        setButtonText(multiple ? trans('form.input.selectedFiles', e.target.files.length) : selectedFileName);
+        setButtonText(selectedFileName);
 
         setFiles(e.target.files);
 
-        validateComponent({
-            form,
-            id,
-            rules,
-            value: (e.target.files as any),
-            props,
-            setError,
-        });
+        formInput.requiredValue(e.target.files);
     }
-
-    React.useEffect(() => {
-        if (content === null || content === undefined) return;
-
-        setDynamicContent(content);
-    }, [content]);
-
-    useFormInputRegistrar({
-        id,
-        name,
-        rules,
-        props,
-        value: files,
-        setError,
-    });
 
     const handleName = () => {
         if (name.includes('[') === false) {
@@ -144,8 +98,6 @@ export default function FileInput(props: FileInputProps) {
 
         return nameOnly + 'String[' + restOfName.join('[');
     }
-
-    const Component = props.buttonComponent;
 
     return (
         <FileInputWrapper>
@@ -164,21 +116,17 @@ export default function FileInput(props: FileInputProps) {
                 <Label label={label} htmlFor={id} required={required} />
 
                 <FileButtonWrapper>
-                    <Component id={id} onClick={openFileSelectionDialog}>
-                        {dynamicContent ? dynamicContent :
-                            <>
-                                {buttonIcon}
-                                <FileButtonText> {currentButtonText}</FileButtonText>
-                            </>
-                        }
-                    </Component>
+                    <otherProps.buttonComponent id={id} onClick={openFileSelectionDialog}>
+                        {buttonIcon}
+                        <FileButtonText>{currentButtonText}</FileButtonText>
+                    </otherProps.buttonComponent>
                 </FileButtonWrapper>
 
                 <FormHelperText error={hasError}>{error}</FormHelperText>
 
-                <HiddenInputFile multiple={multiple} accept={acceptedTypes} onChange={onFileSelection} ref={fileInputRef} style={{ display: 'none' }} name={name} />
+                <HiddenInputFile accept={(accept || []).map(extension => '.' + extension).join(',')} onChange={onFileSelection} ref={fileInputRef} style={{ display: 'none' }} name={toInputName(name)} />
             </FormControl>
-        </FileInputWrapper >
+        </FileInputWrapper>
     )
 }
 
