@@ -55,6 +55,10 @@ export type FormConfigSettings = {
              */
             interchangeableLabelPlaceholder?: boolean;
             /**
+             * Merge more props to the input
+             */
+            moreProps?: object;
+            /**
              * Base classes for input
              */
             classes?: {
