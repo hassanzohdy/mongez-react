@@ -348,6 +348,11 @@ function Input(props: InputProps, ref) {
     }
   };
 
+  const moreProps = {
+    ...otherProps,
+    ...config.get("form.input.moreProps", {}),
+  };
+
   if (theme === "bootstrap") {
     const input = (
       <BootstrapInput
@@ -402,7 +407,7 @@ function Input(props: InputProps, ref) {
         variant={variant}
         fullWidth
         InputProps={inputProps}
-        {...otherProps}
+        {...moreProps}
         value={internalValue}
       />
     );
@@ -419,7 +424,7 @@ function Input(props: InputProps, ref) {
       variant={variant}
       fullWidth
       InputProps={inputProps}
-      {...otherProps}
+      {...moreProps}
       value={internalValue}
     />
   );
