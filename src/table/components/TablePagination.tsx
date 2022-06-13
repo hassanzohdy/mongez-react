@@ -52,6 +52,7 @@ export default function TablePagination() {
         page={currentPage}
         labelDisplayedRows={displayedRows}
         labelRowsPerPage={trans("table.labelRowsPerPage")}
+        onChangePage={handleChangePage}
         onPageChange={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
