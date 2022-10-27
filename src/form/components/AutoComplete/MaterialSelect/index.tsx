@@ -230,6 +230,8 @@ export default function AutoComplete(props: any) {
   React.useEffect(() => {
     if (!dynamicRequest) return;
 
+    setLoading(true);
+
     dynamicRequest().then(manageRequestResponse);
   }, [dynamicRequest]);
 
